@@ -6,10 +6,10 @@ ThemeData appTheme(BuildContext context) {
     backgroundColor: const Color(0xFFFF97B7),
     textTheme: TextTheme(
         headline1: GoogleFonts.beVietnamPro(
-            fontWeight: FontWeight.w800,
-            fontSize: 32,
-            color: const Color(0xFF1C1C1E) // ExtraBold
-            ),
+          fontWeight: FontWeight.w800, // ExtraBold
+          fontSize: 32,
+          color: const Color(0xFF1C1C1E),
+        ),
         bodyText1: GoogleFonts.beVietnamPro(
           fontWeight: FontWeight.normal,
           fontSize: 18,
