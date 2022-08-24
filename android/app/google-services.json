@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680021170684",
+    "project_id": "final-mobile-cdc73",
+    "storage_bucket": "final-mobile-cdc73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680021170684:android:c7baa41021fe5036fffa79",
+        "android_client_info": {
+          "package_name": "com.example.mobile_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680021170684-eg6k7e7qv5od1r19jn06j3n508ctds8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1vp09hTpf0UvYbj9IziAH6pLcAb80PPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680021170684-eg6k7e7qv5od1r19jn06j3n508ctds8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
