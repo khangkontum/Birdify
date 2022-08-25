@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/bloc_observer.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
@@ -27,12 +28,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-        value: authRepository,
-        child: BlocProvider(
-          create: (_) => AuthBloc(authRepository),
-          child: const AppView(),
-        ));
+    return ScreenUtilInit(
+        designSize: const Size(428, 926),
+        minTextAdapt: true,
+        builder: (context, child) {
+          return RepositoryProvider.value(
+              value: authRepository,
+              child: BlocProvider(
+                create: (_) => AuthBloc(authRepository),
+                child: const AppView(),
+              ));
+        });
   }
 }
 

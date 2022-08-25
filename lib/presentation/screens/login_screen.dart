@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/login_cubit/login_cubit.dart';
-import 'package:mobile_final/presentation/style/custom/input_box_decoration.dart';
+import 'package:mobile_final/presentation/common/birdify_button.dart';
+import 'package:mobile_final/presentation/common/input_box_decoration.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,42 +14,45 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size sized = MediaQuery.of(context).size;
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/login-badminton.png',
-              width: sized.width * .7,
+        resizeToAvoidBottomInset: false,
+        body: CustomScrollView(slivers: [
+          SliverFillRemaining(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/login-badminton.png',
+                  width: 303.w,
+                  height: 225.77.h,
+                ),
+                SizedBox(height: 42.h),
+                AutoSizeText(
+                  "Welcome Back",
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                SizedBox(height: 42.h),
+                BlocProvider(
+                  create: (context) => LoginCubit(
+                    context.read<AuthRepository>(),
+                  ),
+                  child: const LoginForm(),
+                ),
+                SizedBox(height: 20.h),
+                const _SignupButton(),
+                const _ForgotPassword(),
+                const Spacer(),
+                const _LoginViaGoogle(),
+                SizedBox(height: 22.h)
+              ],
             ),
-            const SizedBox(height: 42),
-            AutoSizeText(
-              "Welcome Back",
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            const SizedBox(height: 42),
-            BlocProvider(
-              create: (context) => LoginCubit(
-                context.read<AuthRepository>(),
-              ),
-              child: LoginForm(sized: sized),
-            )
-          ],
-        ),
-      ),
-    ));
+          )
+        ]));
   }
 }
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
-    Key? key,
-    required this.sized,
-  }) : super(key: key);
-
-  final Size sized;
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +65,10 @@ class LoginForm extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _EmailInput(sized: sized),
-          const SizedBox(height: 25),
-          _PasswordInput(sized: sized),
-          const SizedBox(height: 30),
+          const _EmailInput(),
+          SizedBox(height: 25.h),
+          const _PasswordInput(),
+          SizedBox(height: 30.h),
           const _LoginButton(),
         ],
       ),
@@ -72,15 +77,13 @@ class LoginForm extends StatelessWidget {
 }
 
 class _EmailInput extends StatelessWidget {
-  const _EmailInput({required this.sized, Key? key}) : super(key: key);
-
-  final Size sized;
+  const _EmailInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sized.height * 0.07,
-      width: sized.width * 0.8,
+      height: 62.h,
+      width: 352.w,
       decoration: inputBoxDecoration,
       child: BlocBuilder<LoginCubit, LoginState>(
         buildWhen: (previous, current) => previous.email != current.email,
@@ -97,15 +100,13 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _PasswordInput extends StatelessWidget {
-  const _PasswordInput({Key? key, required this.sized}) : super(key: key);
-
-  final Size sized;
+  const _PasswordInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sized.height * 0.07,
-      width: sized.width * 0.8,
+      height: 64.h,
+      width: 352.w,
       decoration: inputBoxDecoration,
       child: BlocBuilder<LoginCubit, LoginState>(
         buildWhen: (previous, current) => previous.password != current.password,
@@ -128,10 +129,106 @@ class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: TextButton.styleFrom(
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.zero)),
+        primary: Colors.white,
+        backgroundColor: const Color(0xFF1C1C1E),
+        textStyle: Theme.of(context)
+            .textTheme
+            .bodyText1
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
       onPressed: () async {
         await context.read<LoginCubit>().logInWithCredentials();
       },
-      child: const AutoSizeText("Log In"),
+      child: Container(
+        alignment: Alignment.center,
+        width: 250.w,
+        height: 40.h,
+        child: const AutoSizeText("Log In"),
+      ),
+    );
+  }
+}
+
+class _SignupButton extends StatelessWidget {
+  const _SignupButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+            side: BorderSide(width: 1),
+            borderRadius: BorderRadius.all(Radius.zero)),
+        primary: const Color(0xFF1C1C1E),
+        backgroundColor: Colors.white,
+        textStyle: Theme.of(context)
+            .textTheme
+            .bodyText1
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+      onPressed: () async {
+        // TODO: Implement Sign Up Feature
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 250.w,
+        height: 40.h,
+        child: const AutoSizeText("Sign Up"),
+      ),
+    );
+  }
+}
+
+class _ForgotPassword extends StatelessWidget {
+  const _ForgotPassword({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {},
+      child: Opacity(
+        opacity: .6,
+        child: AutoSizeText(
+          "Forgot password?",
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+      ),
+    );
+  }
+}
+
+class _LoginViaGoogle extends StatelessWidget {
+  const _LoginViaGoogle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BirdifyButton(
+      height: 48.h,
+      width: 250.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/google_icon.png',
+            width: 20.w,
+            height: 20.h,
+          ),
+          SizedBox(width: 8.w),
+          AutoSizeText(
+            "Login via Google",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+      onClick: () {},
     );
   }
 }
