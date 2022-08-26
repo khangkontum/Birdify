@@ -9,6 +9,8 @@ import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
 import 'package:mobile_final/presentation/style/style.dart';
 
+// final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,6 +18,7 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
 
   final AuthRepository authRepository = AuthRepository();
+
   runApp(
     MyApp(authRepository: authRepository),
   );
@@ -49,6 +52,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // scaffoldMessengerKey: _scaffoldKey,
       title: 'Final Mobile',
       theme: themeData,
       home: SafeArea(

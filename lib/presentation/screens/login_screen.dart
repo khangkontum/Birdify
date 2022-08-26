@@ -62,8 +62,21 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
+        if (state.status == LoginStatus.submitting) {
+          context.loaderOverlay.show();
+        }
         if (state.status == LoginStatus.error) {
           // TODO: error handling
+          context.loaderOverlay.hide();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Error")),
+          );
+        }
+        if (state.status == LoginStatus.success) {
+          context.loaderOverlay.hide();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Login Success")),
+          );
         }
       },
       child: Column(
@@ -135,37 +148,26 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
-        if (state.status == LoginStatus.submitting) {
-          context.loaderOverlay.show();
-        }
-        if (state.status == LoginStatus.success ||
-            state.status == LoginStatus.error) {
-          context.loaderOverlay.hide();
-        }
+    return TextButton(
+      style: TextButton.styleFrom(
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.zero)),
+        primary: Colors.white,
+        backgroundColor: const Color(0xFF1C1C1E),
+        textStyle: Theme.of(context)
+            .textTheme
+            .bodyText1
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+      onPressed: () async {
+        await context.read<LoginCubit>().logInWithCredentials();
       },
-      child: TextButton(
-        style: TextButton.styleFrom(
-          elevation: 0,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.zero)),
-          primary: Colors.white,
-          backgroundColor: const Color(0xFF1C1C1E),
-          textStyle: Theme.of(context)
-              .textTheme
-              .bodyText1
-              ?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        onPressed: () async {
-          await context.read<LoginCubit>().logInWithCredentials();
-        },
-        child: Container(
-          alignment: Alignment.center,
-          width: 250.w,
-          height: 40.h,
-          child: const AutoSizeText("Log In"),
-        ),
+      child: Container(
+        alignment: Alignment.center,
+        width: 250.w,
+        height: 40.h,
+        child: const AutoSizeText("Log In"),
       ),
     );
   }
