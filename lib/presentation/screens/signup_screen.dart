@@ -1,51 +1,43 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mobile_final/data/providers/auth_google_provider.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
-import 'package:mobile_final/logic/login_cubit/login_cubit.dart';
+import 'package:mobile_final/logic/signup_cubit/signup_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
-  static Page page() => const MaterialPage<void>(child: LoginScreen());
+  static Page page() => const MaterialPage<void>(child: SignupScreen());
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+          appBar: Birdify.appbar(context: context),
           resizeToAvoidBottomInset: false,
           body: CustomScrollView(slivers: [
             SliverFillRemaining(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/login-badminton.png',
-                    width: 303.w,
-                    height: 225.77.h,
-                  ),
-                  SizedBox(height: 42.h),
                   AutoSizeText(
-                    "Welcome Back",
+                    "Sign Up",
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   SizedBox(height: 42.h),
                   BlocProvider(
-                    create: (context) => LoginCubit(
+                    create: (context) => SignupCubit(
                       context.read<AuthRepository>(),
                     ),
-                    child: const LoginForm(),
+                    child: const SignupForm(),
                   ),
                   SizedBox(height: 20.h),
-                  const _SignupButton(),
-                  const _ForgotPassword(),
                   const Spacer(),
                   const _LoginViaGoogle(),
                   SizedBox(height: 22.h)
@@ -57,28 +49,30 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignupForm extends StatelessWidget {
+  const SignupForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<SignupCubit, SignupState>(
       listener: (context, state) {
-        if (state.status == LoginStatus.submitting) {
+        if (state.status == SignupStatus.submitting) {
           context.loaderOverlay.show();
         }
-        if (state.status == LoginStatus.error) {
+        if (state.status == SignupStatus.error) {
           // TODO: error handling
           context.loaderOverlay.hide();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Error")),
           );
         }
-        if (state.status == LoginStatus.success) {
+        if (state.status == SignupStatus.success) {
           context.loaderOverlay.hide();
+
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Login Success")),
+            const SnackBar(content: Text("Signup Success")),
           );
+          context.pop();
         }
       },
       child: Column(
@@ -88,7 +82,7 @@ class LoginForm extends StatelessWidget {
           SizedBox(height: 25.h),
           const _PasswordInput(),
           SizedBox(height: 30.h),
-          const _LoginButton(),
+          const _SignupButton(),
         ],
       ),
     );
@@ -105,12 +99,12 @@ class _EmailInput extends StatelessWidget {
       width: 352.w,
       alignment: Alignment.center,
       decoration: inputBoxDecoration,
-      child: BlocBuilder<LoginCubit, LoginState>(
+      child: BlocBuilder<SignupCubit, SignupState>(
         buildWhen: (previous, current) => previous.email != current.email,
         builder: (context, state) {
           return TextFormField(
               onChanged: (value) =>
-                  context.read<LoginCubit>().emailChanged(value),
+                  context.read<SignupCubit>().emailChanged(value),
               decoration: const InputDecoration(hintText: "Email"));
         },
       ),
@@ -128,48 +122,18 @@ class _PasswordInput extends StatelessWidget {
       width: 352.w,
       alignment: Alignment.center,
       decoration: inputBoxDecoration,
-      child: BlocBuilder<LoginCubit, LoginState>(
+      child: BlocBuilder<SignupCubit, SignupState>(
         buildWhen: (previous, current) => previous.password != current.password,
         builder: (context, state) {
           return TextFormField(
-            onFieldSubmitted: (value) =>
-                context.read<LoginCubit>().logInWithCredentials(),
             onChanged: (value) =>
-                context.read<LoginCubit>().passwordChanged(value),
+                context.read<SignupCubit>().passwordChanged(value),
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
             decoration: const InputDecoration(hintText: "Password"),
           );
         },
-      ),
-    );
-  }
-}
-
-class _LoginButton extends StatelessWidget {
-  const _LoginButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.zero)),
-        primary: Colors.white,
-        backgroundColor: const Color(0xFF1C1C1E),
-        textStyle: Theme.of(context)
-            .textTheme
-            .bodyText1
-            ?.copyWith(fontWeight: FontWeight.bold),
-      ),
-      onPressed: () => context.read<LoginCubit>().logInWithCredentials(),
-      child: Container(
-        alignment: Alignment.center,
-        width: 250.w,
-        height: 40.h,
-        child: const AutoSizeText("Log In"),
       ),
     );
   }
@@ -193,32 +157,14 @@ class _SignupButton extends StatelessWidget {
             .bodyText1
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: () {
-        context.push('/signup');
+      onPressed: () async {
+        await context.read<SignupCubit>().signupWithCredentials();
       },
       child: Container(
         alignment: Alignment.center,
         width: 250.w,
         height: 40.h,
-        child: const AutoSizeText("Sign Up"),
-      ),
-    );
-  }
-}
-
-class _ForgotPassword extends StatelessWidget {
-  const _ForgotPassword({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
-      child: Opacity(
-        opacity: .6,
-        child: AutoSizeText(
-          "Forgot password?",
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
+        child: const AutoSizeText("Create Account"),
       ),
     );
   }

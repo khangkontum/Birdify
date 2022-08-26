@@ -10,11 +10,9 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: FlowBuilder<AuthStatus>(
-        state: context.select((AuthBloc bloc) => bloc.state.status),
-        onGeneratePages: onGenerateAppView,
-      ),
+    return FlowBuilder<AuthStatus>(
+      state: context.select((AuthBloc bloc) => bloc.state.status),
+      onGeneratePages: onGenerateAppView,
     );
   }
 }

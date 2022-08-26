@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
+import 'package:mobile_final/presentation/screens/signup_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/',
@@ -7,6 +8,12 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const AuthGate(),
-    )
+      routes: [
+        GoRoute(
+          path: 'signup',
+          builder: (_, __) => const SignupScreen(),
+        ),
+      ],
+    ),
   ],
 );
