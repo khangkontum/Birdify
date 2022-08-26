@@ -1,4 +1,12 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_final/presentation/routers/auth_router.dart';
 
-@MaterialAutoRouter()
-class $myAppRouter {}
+final router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const AuthGate(),
+    )
+  ],
+);

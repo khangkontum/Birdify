@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_final/bloc_observer.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
-import 'package:mobile_final/presentation/routers/auth_router.dart';
+import 'package:mobile_final/presentation/routers/router.dart';
 import 'package:mobile_final/presentation/style/style.dart';
 
 // final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
@@ -50,17 +49,13 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      // scaffoldMessengerKey: _scaffoldKey,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       title: 'Final Mobile',
       theme: themeData,
-      home: SafeArea(
-        child: FlowBuilder<AuthStatus>(
-          state: context.select((AuthBloc bloc) => bloc.state.status),
-          onGeneratePages: onGenerateAppView,
-        ),
-      ),
     );
   }
 }
