@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+class Birdify {
+  static StatelessWidget button({
+    required Widget child,
+    required Function onClick,
+    required double height,
+    required double width,
+  }) {
+    return _BirdifyButton(
+      onClick: onClick,
+      height: height,
+      width: width,
+      child: child,
+    );
+  }
+}
+
 /// Use this button for notion like style.
-class BirdifyButton extends StatelessWidget {
-  const BirdifyButton({
+class _BirdifyButton extends StatelessWidget {
+  const _BirdifyButton({
     Key? key,
     required this.child,
     required this.onClick,

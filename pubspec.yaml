@@ -47,6 +47,8 @@ dependencies:
   flow_builder: ^0.0.9
   bloc: ^8.1.0
   flutter_screenutil: ^5.5.3+2
+  loader_overlay: ^2.0.10
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:

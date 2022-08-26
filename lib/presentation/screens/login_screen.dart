@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/login_cubit/login_cubit.dart';
-import 'package:mobile_final/presentation/common/birdify_button.dart';
+import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -87,6 +88,7 @@ class _EmailInput extends StatelessWidget {
     return Container(
       height: 62.h,
       width: 352.w,
+      alignment: Alignment.center,
       decoration: inputBoxDecoration,
       child: BlocBuilder<LoginCubit, LoginState>(
         buildWhen: (previous, current) => previous.email != current.email,
@@ -94,7 +96,6 @@ class _EmailInput extends StatelessWidget {
           return TextFormField(
               onChanged: (value) =>
                   context.read<LoginCubit>().emailChanged(value),
-              textAlignVertical: TextAlignVertical.center,
               decoration: const InputDecoration(hintText: "Email"));
         },
       ),
@@ -110,6 +111,7 @@ class _PasswordInput extends StatelessWidget {
     return Container(
       height: 64.h,
       width: 352.w,
+      alignment: Alignment.center,
       decoration: inputBoxDecoration,
       child: BlocBuilder<LoginCubit, LoginState>(
         buildWhen: (previous, current) => previous.password != current.password,
@@ -120,7 +122,6 @@ class _PasswordInput extends StatelessWidget {
             obscureText: true,
             enableSuggestions: false,
             autocorrect: false,
-            textAlignVertical: TextAlignVertical.center,
             decoration: const InputDecoration(hintText: "Password"),
           );
         },
@@ -134,26 +135,37 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.zero)),
-        primary: Colors.white,
-        backgroundColor: const Color(0xFF1C1C1E),
-        textStyle: Theme.of(context)
-            .textTheme
-            .bodyText1
-            ?.copyWith(fontWeight: FontWeight.bold),
-      ),
-      onPressed: () async {
-        await context.read<LoginCubit>().logInWithCredentials();
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state.status == LoginStatus.submitting) {
+          context.loaderOverlay.show();
+        }
+        if (state.status == LoginStatus.success ||
+            state.status == LoginStatus.error) {
+          context.loaderOverlay.hide();
+        }
       },
-      child: Container(
-        alignment: Alignment.center,
-        width: 250.w,
-        height: 40.h,
-        child: const AutoSizeText("Log In"),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          elevation: 0,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.zero)),
+          primary: Colors.white,
+          backgroundColor: const Color(0xFF1C1C1E),
+          textStyle: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        onPressed: () async {
+          await context.read<LoginCubit>().logInWithCredentials();
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: 250.w,
+          height: 40.h,
+          child: const AutoSizeText("Log In"),
+        ),
       ),
     );
   }
@@ -213,7 +225,7 @@ class _LoginViaGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BirdifyButton(
+    return Birdify.button(
       height: 48.h,
       width: 250.w,
       child: Row(
