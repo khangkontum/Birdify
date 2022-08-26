@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/signup_cubit/signup_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,7 +19,13 @@ class SignupScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-          appBar: Birdify.appbar(context: context),
+          appBar: Birdify.appbar(
+            context: context,
+            actions: [
+              Image.asset('assets/shuttlecock.png'),
+              SizedBox(width: 22.w)
+            ],
+          ),
           resizeToAvoidBottomInset: false,
           body: CustomScrollView(slivers: [
             SliverFillRemaining(
