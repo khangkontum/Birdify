@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
+import 'package:mobile_final/presentation/screens/signup_screen.dart';
 
 part 'signup_state.dart';
 
@@ -27,9 +29,12 @@ class SignupCubit extends Cubit<SignupState> {
         await _authRepository.signUpWithEmailAndPassword(
             email: state.email, password: state.password);
         emit(state.copyWith(status: SignupStatus.success));
-      } catch (_) {
-        print(_);
-        emit(state.copyWith(status: SignupStatus.error));
+      } on FirebaseAuthException catch (err) {
+        print(err.code);
+        emit(state.copyWith(
+          status: SignupStatus.error,
+          errorStatus: err.message,
+        ));
       }
     }
   }

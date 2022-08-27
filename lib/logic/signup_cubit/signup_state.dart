@@ -7,11 +7,13 @@ class SignupState extends Equatable {
     required this.email,
     required this.password,
     required this.status,
+    this.errorStatus = '',
   });
 
   final String email;
   final String password;
   final SignupStatus status;
+  final String errorStatus;
 
   factory SignupState.initial() {
     return const SignupState(
@@ -21,12 +23,17 @@ class SignupState extends Equatable {
     );
   }
 
-  SignupState copyWith(
-      {String? email, String? password, SignupStatus? status}) {
+  SignupState copyWith({
+    String? email,
+    String? password,
+    SignupStatus? status,
+    String? errorStatus,
+  }) {
     return SignupState(
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,
+      errorStatus: errorStatus ?? this.errorStatus,
     );
   }
 

@@ -17,42 +17,44 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: CustomScrollView(slivers: [
-            SliverFillRemaining(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/login-badminton.png',
-                    width: 303.w,
-                    height: 225.77.h,
-                  ),
-                  SizedBox(height: 42.h),
-                  AutoSizeText(
-                    "Welcome Back",
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  SizedBox(height: 42.h),
-                  BlocProvider(
-                    create: (context) => LoginCubit(
-                      context.read<AuthRepository>(),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: CustomScrollView(slivers: [
+              SliverFillRemaining(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/login-badminton.png',
+                      width: 303.w,
+                      height: 225.77.h,
                     ),
-                    child: const LoginForm(),
-                  ),
-                  SizedBox(height: 20.h),
-                  const _SignupButton(),
-                  const _ForgotPassword(),
-                  const Spacer(),
-                  const _LoginViaGoogle(),
-                  SizedBox(height: 22.h)
-                ],
-              ),
-            )
-          ])),
+                    SizedBox(height: 42.h),
+                    AutoSizeText(
+                      "Welcome Back",
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    SizedBox(height: 42.h),
+                    BlocProvider(
+                      create: (context) => LoginCubit(
+                        context.read<AuthRepository>(),
+                      ),
+                      child: const LoginForm(),
+                    ),
+                    SizedBox(height: 20.h),
+                    const _SignupButton(),
+                    const _ForgotPassword(),
+                    const Spacer(),
+                    const _LoginViaGoogle(),
+                    SizedBox(height: 22.h)
+                  ],
+                ),
+              )
+            ])),
+      ),
     );
   }
 }
@@ -68,10 +70,11 @@ class LoginForm extends StatelessWidget {
           context.loaderOverlay.show();
         }
         if (state.status == LoginStatus.error) {
-          // TODO: error handling
           context.loaderOverlay.hide();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Error")),
+            SnackBar(
+              content: AutoSizeText(state.errorStatus),
+            ),
           );
         }
         if (state.status == LoginStatus.success) {

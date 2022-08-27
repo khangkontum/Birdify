@@ -16,41 +16,43 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-          appBar: Birdify.appbar(
-            context: context,
-            actions: [
-              Image.asset('assets/shuttlecock.png'),
-              SizedBox(width: 22.w)
-            ],
-          ),
-          resizeToAvoidBottomInset: false,
-          body: CustomScrollView(slivers: [
-            SliverFillRemaining(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AutoSizeText(
-                    "Sign Up",
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  SizedBox(height: 42.h),
-                  BlocProvider(
-                    create: (context) => SignupCubit(
-                      context.read<AuthRepository>(),
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+            appBar: Birdify.appbar(
+              context: context,
+              actions: [
+                Image.asset('assets/shuttlecock.png'),
+                SizedBox(width: 22.w)
+              ],
+            ),
+            resizeToAvoidBottomInset: false,
+            body: CustomScrollView(slivers: [
+              SliverFillRemaining(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AutoSizeText(
+                      "Sign Up",
+                      style: Theme.of(context).textTheme.headline1,
                     ),
-                    child: const SignupForm(),
-                  ),
-                  SizedBox(height: 20.h),
-                  const Spacer(),
-                  const _LoginViaGoogle(),
-                  SizedBox(height: 22.h)
-                ],
-              ),
-            )
-          ])),
+                    SizedBox(height: 42.h),
+                    BlocProvider(
+                      create: (context) => SignupCubit(
+                        context.read<AuthRepository>(),
+                      ),
+                      child: const SignupForm(),
+                    ),
+                    SizedBox(height: 20.h),
+                    const Spacer(),
+                    const _LoginViaGoogle(),
+                    SizedBox(height: 22.h)
+                  ],
+                ),
+              )
+            ])),
+      ),
     );
   }
 }
@@ -76,7 +78,9 @@ class SignupForm extends StatelessWidget {
           context.loaderOverlay.hide();
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Signup Success")),
+            SnackBar(
+              content: AutoSizeText(state.errorStatus),
+            ),
           );
           context.pop();
         }
