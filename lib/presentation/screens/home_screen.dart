@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
-  static Page page() => MaterialPage<void>(child: HomeScreen());
+  static Page page() => const MaterialPage<void>(child: HomeScreen());
 
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
   static const List<String> _routeOption = <String>[
     '/home',
     '/clubs',

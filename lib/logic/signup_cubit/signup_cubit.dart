@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
-import 'package:mobile_final/presentation/screens/signup_screen.dart';
 
 part 'signup_state.dart';
 

@@ -43,7 +43,7 @@ dependencies:
   google_fonts: ^3.0.1
   auto_size_text: ^3.0.0
   google_sign_in: ^5.4.1
-  flow_builder: ^0.0.9
+  # flow_builder: ^0.0.9
   bloc: ^8.1.0
   flutter_screenutil: ^5.5.3+2
   loader_overlay: ^2.0.10
