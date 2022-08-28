@@ -18,6 +18,10 @@ class SignupCubit extends Cubit<SignupState> {
     emit(state.copyWith(password: value, status: SignupStatus.initial));
   }
 
+  void fullNameChanged(String value) {
+    emit(state.copyWith(fullName: value, status: SignupStatus.initial));
+  }
+
   Future<void> signupWithCredentials() async {
     if (state.status == SignupStatus.submitting) {
       return; // Avoid submitting many times;
@@ -26,13 +30,21 @@ class SignupCubit extends Cubit<SignupState> {
       emit(state.copyWith(status: SignupStatus.submitting));
       try {
         await _authRepository.signUpWithEmailAndPassword(
-            email: state.email, password: state.password);
+          email: state.email,
+          password: state.password,
+          fullName: state.fullName,
+        );
         emit(state.copyWith(status: SignupStatus.success));
       } on FirebaseAuthException catch (err) {
         print(err.code);
         emit(state.copyWith(
           status: SignupStatus.error,
           errorStatus: err.message,
+        ));
+      } catch (_) {
+        print(_);
+        emit(state.copyWith(
+          status: SignupStatus.error,
         ));
       }
     }
