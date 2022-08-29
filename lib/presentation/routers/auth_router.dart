@@ -1,3 +1,4 @@
+import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/presentation/screens/home_screen.dart';
@@ -9,32 +10,21 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        switch (state.status) {
-          case AuthStatus.authenticated:
-            return const HomeScreen();
-          case AuthStatus.unauthenticated:
-            return const LoginScreen();
-        }
-      },
+    return FlowBuilder<AuthStatus>(
+      state: context.select((AuthBloc bloc) => bloc.state.status),
+      onGeneratePages: onGenerateAppView,
     );
-    // FlowBuilder<AuthStatus>(
-    //   state: context.select((AuthBloc bloc) => bloc.state.status),
-    //   onGeneratePages: onGenerateAppView,
-    // );
   }
 }
 
-// List<Page> onGenerateAppView(
-//   AuthStatus status,
-//   List<Page<dynamic>> pages,
-// ) {
-//   switch (status) {
-//     case AuthStatus.authenticated:
-//       return [HomeScreen.page()];
-//     case AuthStatus.unauthenticated:
-//       return [LoginScreen.page()];
-//   }
-// }
+List<Page> onGenerateAppView(
+  AuthStatus status,
+  List<Page<dynamic>> pages,
+) {
+  switch (status) {
+    case AuthStatus.authenticated:
+      return [HomeScreen.page()];
+    case AuthStatus.unauthenticated:
+      return [LoginScreen.page()];
+  }
+}

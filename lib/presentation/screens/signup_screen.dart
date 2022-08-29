@@ -68,22 +68,21 @@ class SignupForm extends StatelessWidget {
           context.loaderOverlay.show();
         }
         if (state.status == SignupStatus.error) {
+          // TODO: error handling
           context.loaderOverlay.hide();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: AutoSizeText(state.errorStatus),
-            ),
+            const SnackBar(content: Text("Error")),
           );
         }
         if (state.status == SignupStatus.success) {
           context.loaderOverlay.hide();
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: AutoSizeText("Sign Up Success"),
+            SnackBar(
+              content: AutoSizeText(state.errorStatus),
             ),
           );
-          // context.pop();
+          context.pop();
         }
       },
       child: Column(
