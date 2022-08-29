@@ -6,6 +6,7 @@ import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/router.dart';
+import 'package:mobile_final/presentation/routers/router.gr.dart';
 import 'package:mobile_final/presentation/style/style.dart';
 
 // final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         value: authRepository,
         child: BlocProvider(
           create: (_) => AuthBloc(authRepository),
-          child: const AppView(),
+          child: AppView(),
         ),
       ),
     );
@@ -43,17 +44,18 @@ class MyApp extends StatelessWidget {
 }
 
 class AppView extends StatelessWidget {
-  const AppView({
+  AppView({
     Key? key,
   }) : super(key: key);
+
+  final _appRouter = myAppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: _appRouter.delegate(),
       title: 'Final Mobile',
       theme: themeData,
     );
