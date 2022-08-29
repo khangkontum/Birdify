@@ -34,7 +34,7 @@ class Birdify {
     );
   }
 
-  static StatelessWidget card({
+  static StatelessWidget meetUpCard({
     required void Function() onTap,
   }) {
     return _BirdifyCard(
@@ -51,6 +51,25 @@ class Birdify {
       backgroundColor: Colors.transparent,
       elevation: 0,
       actions: actions,
+    );
+  }
+
+  static StatelessWidget card({
+    required double height,
+    required double width,
+    required Widget child,
+  }) {
+    return Container(
+      height: height,
+      width: width,
+      padding: EdgeInsets.all(8.w),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black,
+          width: 1.5.w,
+        ),
+      ),
+      child: child,
     );
   }
 }

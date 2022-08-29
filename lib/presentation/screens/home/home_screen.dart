@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mobile_final/presentation/screens/club-screen.dart';
+import 'package:mobile_final/presentation/screens/home/club/club-screen.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-screen.dart';
-import 'package:mobile_final/presentation/screens/notification-screen.dart';
-import 'package:mobile_final/presentation/screens/profile-screen.dart';
+import 'package:mobile_final/presentation/screens/home/notification/notification-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

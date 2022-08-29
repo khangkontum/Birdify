@@ -9,7 +9,7 @@ import 'package:mobile_final/presentation/common/input_box_decoration.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:get/get.dart';
-import 'package:mobile_final/presentation/screens/signup_screen.dart';
+import 'package:mobile_final/presentation/screens/auth/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -2,9 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-detail-screen.dart';
 
 class MeetupScreen extends StatelessWidget {
   MeetupScreen({super.key});
@@ -37,8 +38,8 @@ class MeetupScreen extends StatelessWidget {
         itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
           return Center(
-            child: Birdify.card(
-              onTap: () {},
+            child: Birdify.meetUpCard(
+              onTap: () => Get.to(const MeetUpDetailScreen()),
             ),
           );
         },
