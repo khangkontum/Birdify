@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 class Birdify {
   static StatelessWidget button({
@@ -28,7 +28,7 @@ class Birdify {
       elevation: 0,
       actions: actions,
       leading: IconButton(
-          onPressed: () => context.pop(),
+          onPressed: () => Get.back(),
           icon: const Icon(FontAwesomeIcons.arrowLeft)),
     );
   }

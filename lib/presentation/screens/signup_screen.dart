@@ -7,7 +7,6 @@ import 'package:mobile_final/logic/signup_cubit/signup_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:go_router/go_router.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -82,7 +81,7 @@ class SignupForm extends StatelessWidget {
               content: AutoSizeText(state.errorStatus),
             ),
           );
-          context.pop();
+          Navigator.of(context).pop();
         }
       },
       child: Column(

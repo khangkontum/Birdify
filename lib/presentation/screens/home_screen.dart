@@ -4,49 +4,58 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
+import 'package:mobile_final/presentation/screens/club-screen.dart';
+import 'package:mobile_final/presentation/screens/match-screen.dart';
+import 'package:mobile_final/presentation/screens/notification-screen.dart';
+import 'package:mobile_final/presentation/screens/profile-screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-  static Page page() => MaterialPage<void>(child: HomeScreen());
+  static Page page() => const MaterialPage<void>(child: HomeScreen());
 
-  int _selectedIndex = 0;
-  static const List<String> _routeOption = <String>[
-    '/home',
-    '/clubs',
-    '/notification',
-    'profile'
+  static const List<Widget> _routeOption = <Widget>[
+    MatchScreen(),
+    ClubScreen(),
+    NotificationScreen(),
+    ProfileScreen(),
   ];
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.pinkAccent,
-        child: TextButton(
-          onPressed: () {
-            context.read<AuthBloc>().add(LoggedOutEvent());
+    return SafeArea(
+      child: Scaffold(
+        body: HomeScreen._routeOption.elementAt(_selectedIndex),
+        bottomNavigationBar: GNav(
+          rippleColor: Colors.grey[300]!,
+          hoverColor: Colors.grey[100]!,
+          gap: 8,
+          activeColor: Colors.black,
+          iconSize: 24,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          duration: const Duration(milliseconds: 400),
+          tabBackgroundColor: Colors.grey[100]!,
+          color: Colors.black,
+          tabs: const [
+            GButton(icon: Iconsax.house, text: 'Meetings'),
+            GButton(icon: Iconsax.cloud, text: 'Clubs'),
+            GButton(icon: Iconsax.notification, text: 'Notifications'),
+            GButton(icon: Iconsax.user, text: 'Profile'),
+          ],
+          selectedIndex: _selectedIndex,
+          onTabChange: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
           },
-          child: const Text("Log Out"),
         ),
-      ),
-      bottomNavigationBar: GNav(
-        rippleColor: Colors.grey[300]!,
-        hoverColor: Colors.grey[100]!,
-        gap: 8,
-        activeColor: Colors.black,
-        iconSize: 24,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        duration: const Duration(milliseconds: 400),
-        tabBackgroundColor: Colors.grey[100]!,
-        color: Colors.black,
-        tabs: const [
-          GButton(icon: Iconsax.house, text: 'Meetings'),
-          GButton(icon: Iconsax.cloud, text: 'Clubs'),
-          GButton(icon: Iconsax.notification, text: 'Notifications'),
-          GButton(icon: Iconsax.user, text: 'Profile'),
-        ],
-        selectedIndex: _selectedIndex,
       ),
     );
   }

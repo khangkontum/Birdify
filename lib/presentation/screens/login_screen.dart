@@ -1,14 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mobile_final/data/providers/auth_google_provider.dart';
+import 'package:get/instance_manager.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/login_cubit/login_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:get/get.dart';
+import 'package:mobile_final/presentation/screens/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -197,7 +198,7 @@ class _SignupButton extends StatelessWidget {
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
       onPressed: () {
-        context.push('/signup');
+        Get.to(const SignupScreen());
       },
       child: Container(
         alignment: Alignment.center,
