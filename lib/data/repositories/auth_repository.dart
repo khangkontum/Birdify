@@ -27,27 +27,20 @@ class AuthRepository {
       _firebaseAuth.authStateChanges();
   Stream<firebase.User?> get idTokenChange => _firebaseAuth.idTokenChanges();
 
-  Future<void> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<void> signUpWithEmailAndPassword({
-    required String email,
-    required String password,
-    required String fullName,
-    String? phoneNumber,
-  }) async {
+  Future<void> signUpWithEmailAndPassword(
+      {required String email, required String password}) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-    await _firebaseAuth.currentUser?.updateDisplayName(fullName);
   }
 
   Future<void> signOut() async {

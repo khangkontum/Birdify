@@ -166,10 +166,7 @@ class _LoginButton extends StatelessWidget {
             .bodyText1
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-        context.read<LoginCubit>().logInWithCredentials();
-      },
+      onPressed: () => context.read<LoginCubit>().logInWithCredentials(),
       child: Container(
         alignment: Alignment.center,
         width: 250.w,

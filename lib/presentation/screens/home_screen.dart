@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,36 +19,33 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          color: Colors.pinkAccent,
-          child: TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(LoggedOutEvent());
-            },
-            child: const Text("Log Out"),
-          ),
+    return Scaffold(
+      body: Container(
+        color: Colors.pinkAccent,
+        child: TextButton(
+          onPressed: () {
+            context.read<AuthBloc>().add(LoggedOutEvent());
+          },
+          child: const Text("Log Out"),
         ),
-        bottomNavigationBar: GNav(
-          rippleColor: Colors.grey[300]!,
-          hoverColor: Colors.grey[100]!,
-          gap: 8,
-          activeColor: Colors.black,
-          iconSize: 24,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          duration: const Duration(milliseconds: 400),
-          tabBackgroundColor: Colors.grey[100]!,
-          color: Colors.black,
-          tabs: const [
-            GButton(icon: Iconsax.house, text: 'Meetings'),
-            GButton(icon: Iconsax.cloud, text: 'Clubs'),
-            GButton(icon: Iconsax.notification, text: 'Notifications'),
-            GButton(icon: Iconsax.user, text: 'Profile'),
-          ],
-          selectedIndex: _selectedIndex,
-          onTabChange: (index) {},
-        ),
+      ),
+      bottomNavigationBar: GNav(
+        rippleColor: Colors.grey[300]!,
+        hoverColor: Colors.grey[100]!,
+        gap: 8,
+        activeColor: Colors.black,
+        iconSize: 24,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        duration: const Duration(milliseconds: 400),
+        tabBackgroundColor: Colors.grey[100]!,
+        color: Colors.black,
+        tabs: const [
+          GButton(icon: Iconsax.house, text: 'Meetings'),
+          GButton(icon: Iconsax.cloud, text: 'Clubs'),
+          GButton(icon: Iconsax.notification, text: 'Notifications'),
+          GButton(icon: Iconsax.user, text: 'Profile'),
+        ],
+        selectedIndex: _selectedIndex,
       ),
     );
   }

@@ -83,7 +83,7 @@ class SignupForm extends StatelessWidget {
               content: AutoSizeText("Sign Up Success"),
             ),
           );
-          context.pop();
+          // context.pop();
         }
       },
       child: Column(
@@ -92,8 +92,6 @@ class SignupForm extends StatelessWidget {
           const _EmailInput(),
           SizedBox(height: 25.h),
           const _PasswordInput(),
-          SizedBox(height: 25.h),
-          const _FullNameInput(),
           SizedBox(height: 30.h),
           const _SignupButton(),
         ],
@@ -152,30 +150,6 @@ class _PasswordInput extends StatelessWidget {
   }
 }
 
-class _FullNameInput extends StatelessWidget {
-  const _FullNameInput({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 64.h,
-      width: 352.w,
-      alignment: Alignment.center,
-      decoration: inputBoxDecoration,
-      child: BlocBuilder<SignupCubit, SignupState>(
-        buildWhen: (previous, current) => previous.fullName != current.fullName,
-        builder: (context, state) {
-          return TextFormField(
-            onChanged: (value) =>
-                context.read<SignupCubit>().fullNameChanged(value),
-            decoration: const InputDecoration(hintText: "Full Name"),
-          );
-        },
-      ),
-    );
-  }
-}
-
 class _SignupButton extends StatelessWidget {
   const _SignupButton({Key? key}) : super(key: key);
 
@@ -194,9 +168,8 @@ class _SignupButton extends StatelessWidget {
             .bodyText1
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
-      onPressed: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-        context.read<SignupCubit>().signupWithCredentials();
+      onPressed: () async {
+        await context.read<SignupCubit>().signupWithCredentials();
       },
       child: Container(
         alignment: Alignment.center,
