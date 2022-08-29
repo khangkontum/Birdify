@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/presentation/screens/club-screen.dart';
-import 'package:mobile_final/presentation/screens/match-screen.dart';
+import 'package:mobile_final/presentation/screens/meetup-screen.dart';
 import 'package:mobile_final/presentation/screens/notification-screen.dart';
 import 'package:mobile_final/presentation/screens/profile-screen.dart';
 
@@ -14,11 +11,11 @@ class HomeScreen extends StatefulWidget {
 
   static Page page() => const MaterialPage<void>(child: HomeScreen());
 
-  static const List<Widget> _routeOption = <Widget>[
-    MatchScreen(),
-    ClubScreen(),
-    NotificationScreen(),
-    ProfileScreen(),
+  static final List<Widget> _routeOption = <Widget>[
+    MeetupScreen(),
+    const ClubScreen(),
+    const NotificationScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -44,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           tabBackgroundColor: Colors.grey[100]!,
           color: Colors.black,
           tabs: const [
-            GButton(icon: Iconsax.house, text: 'Meetings'),
+            GButton(icon: Iconsax.activity, text: 'Meet Ups'),
             GButton(icon: Iconsax.cloud, text: 'Clubs'),
             GButton(icon: Iconsax.notification, text: 'Notifications'),
             GButton(icon: Iconsax.user, text: 'Profile'),

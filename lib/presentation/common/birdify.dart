@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,6 +31,26 @@ class Birdify {
       leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(FontAwesomeIcons.arrowLeft)),
+    );
+  }
+
+  static StatelessWidget card({
+    required void Function() onTap,
+  }) {
+    return _BirdifyCard(
+      onTap: onTap,
+    );
+  }
+
+  static AppBar appbarWithoutBack({
+    List<Widget> actions = const [],
+    required BuildContext context,
+  }) {
+    return AppBar(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      actions: actions,
     );
   }
 }
@@ -75,6 +96,115 @@ class _BirdifyButton extends StatelessWidget {
         ),
         onPressed: () {},
         child: child,
+      ),
+    );
+  }
+}
+
+class _BirdifyCard extends StatelessWidget {
+  const _BirdifyCard({
+    Key? key,
+    required this.onTap,
+  }) : super(key: key);
+
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: 145.h,
+          maxWidth: 384.w,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 105.h,
+              width: 384.w,
+              padding: EdgeInsets.all(8.w),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1.5.w,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            '8:30-11:30 am',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                          AutoSizeText(
+                            'Sat 8/20/22',
+                            style:
+                                Theme.of(context).textTheme.bodyText1?.copyWith(
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AutoSizeText(
+                            'status',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                          SizedBox(width: 2.w),
+                          Icon(
+                            Icons.circle,
+                            size: 14.w,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          AutoSizeText(
+                            'Meet-up host',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                        ],
+                      ),
+                      AutoSizeText(
+                        '#meetingId',
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                              fontWeight: FontWeight.w300,
+                              fontStyle: FontStyle.italic,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 40.h),
+          ],
+        ),
       ),
     );
   }
