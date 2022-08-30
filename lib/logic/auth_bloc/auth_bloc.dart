@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobile_final/data/models/user.dart';
+import 'package:mobile_final/data/models/app_user.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 
 part 'auth_event.dart';
@@ -10,7 +10,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-  StreamSubscription<User>? userSubscription;
+  StreamSubscription<AppUser>? userSubscription;
 
   AuthBloc(this._authRepository)
       : super(const AuthState._(

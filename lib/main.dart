@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobile_final/bloc_observer.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
+import 'package:mobile_final/data/repositories/chat_repository.dart';
+import 'package:mobile_final/data/repositories/meetup_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
@@ -19,16 +21,29 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
 
   final AuthRepository authRepository = AuthRepository();
+  final ChatRepository chatRepository = ChatRepository();
+  final MeetUpRepository meetUpRepository = MeetUpRepository();
 
   runApp(
-    MyApp(authRepository: authRepository),
+    MyApp(
+        authRepository: authRepository,
+        chatRepository: chatRepository,
+        meetUpRepository: meetUpRepository),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.authRepository}) : super(key: key);
+  const MyApp(
+      {Key? key,
+      required this.authRepository,
+      required this.chatRepository,
+      required this.meetUpRepository})
+      : super(key: key);
 
   final AuthRepository authRepository;
+  final ChatRepository chatRepository;
+  final MeetUpRepository meetUpRepository;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
