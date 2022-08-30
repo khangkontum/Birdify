@@ -11,6 +11,14 @@ class ClubDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      floatingActionButton: FloatingActionButton(
+          shape: const CircleBorder(
+              side: BorderSide(width: 1.0, color: Colors.black)),
+          elevation: 0.5,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          onPressed: () {},
+          child: const Icon(Iconsax.message)),
       appBar: Birdify.appbar(),
       body: SingleChildScrollView(
         child: Padding(

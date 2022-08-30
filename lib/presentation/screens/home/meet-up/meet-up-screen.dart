@@ -34,6 +34,15 @@ class MeetupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Birdify.appbarWithoutBack(),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(
+            side: BorderSide(width: 1.0, color: Colors.black)),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       body: ListView.builder(
         itemCount: 2,
         itemBuilder: (BuildContext context, int index) {

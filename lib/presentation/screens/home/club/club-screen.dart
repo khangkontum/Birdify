@@ -14,6 +14,15 @@ class ClubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(
+            side: BorderSide(width: 1.0, color: Colors.black)),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        onPressed: () {},
+        child: const Icon(Iconsax.cloud_plus),
+      ),
       appBar: Birdify.appbarWithoutBack(),
       body: ListView.builder(
         itemCount: 4,
