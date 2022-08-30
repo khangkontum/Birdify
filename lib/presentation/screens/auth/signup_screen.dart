@@ -20,7 +20,6 @@ class SignupScreen extends StatelessWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
             appBar: Birdify.appbar(
-              context: context,
               actions: [
                 Image.asset('assets/shuttlecock.png'),
                 SizedBox(width: 22.w)

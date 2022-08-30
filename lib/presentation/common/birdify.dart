@@ -5,24 +5,32 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class Birdify {
-  static StatelessWidget button({
-    required Widget child,
-    required Function onClick,
-    required double height,
-    required double width,
-  }) {
+  static StatelessWidget button(
+      {required Widget child,
+      required Function onClick,
+      required double height,
+      required double width,
+      Color color = Colors.black}) {
     return _BirdifyButton(
       onClick: onClick,
       height: height,
       width: width,
+      color: color,
       child: child,
     );
   }
 
-  static AppBar appbar({
-    List<Widget> actions = const [],
-    required BuildContext context,
+  static StatelessWidget title({
+    required String title,
+    String subtitle = '',
   }) {
+    return _Title(
+      title: title,
+      subtitle: subtitle,
+    );
+  }
+
+  static AppBar appbar({List<Widget> actions = const []}) {
     return AppBar(
       foregroundColor: Colors.black,
       backgroundColor: Colors.transparent,
@@ -62,7 +70,7 @@ class Birdify {
     return Container(
       height: height,
       width: width,
-      padding: EdgeInsets.all(8.w),
+      // padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -72,22 +80,33 @@ class Birdify {
       child: child,
     );
   }
+
+  static StatelessWidget stackCard({
+    required double height,
+    required double width,
+    required Widget child,
+    required Function() onTap,
+  }) {
+    return _StackCard(height: height, width: width, onTap: onTap, child: child);
+  }
 }
 
 /// Use this button for notion like style.
 class _BirdifyButton extends StatelessWidget {
-  const _BirdifyButton({
-    Key? key,
-    required this.child,
-    required this.onClick,
-    required this.height,
-    required this.width,
-  }) : super(key: key);
+  const _BirdifyButton(
+      {Key? key,
+      required this.child,
+      required this.onClick,
+      required this.height,
+      required this.width,
+      required this.color})
+      : super(key: key);
 
   final Widget child;
   final double height;
   final double width;
   final Function onClick;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +117,7 @@ class _BirdifyButton extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            color: color,
             offset: Offset(5.w, 5.h),
           ),
         ],
@@ -225,6 +244,90 @@ class _BirdifyCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _StackCard extends StatelessWidget {
+  const _StackCard({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.child,
+    required this.onTap,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final Widget child;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: height,
+        maxWidth: width,
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Birdify.card(
+            height: height - 5.h,
+            width: width - 5.w,
+            child: Container(),
+          ),
+          Positioned(
+            left: 5.w,
+            top: 5.h,
+            child: GestureDetector(
+              onTap: onTap,
+              child: Birdify.card(
+                height: height - 5.h,
+                width: width - 5.w,
+                child: Container(
+                  color: Colors.white,
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({
+    super.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AutoSizeText(
+          title,
+          maxLines: 2,
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        SizedBox(height: 10.h),
+        AutoSizeText(
+          subtitle,
+          maxLines: 2,
+          style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w300,
+                fontStyle: FontStyle.italic,
+              ),
+        ),
+      ],
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/payment-screen.dart';
 
 class MeetUpDetailScreen extends StatelessWidget {
   const MeetUpDetailScreen({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class MeetUpDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: Birdify.appbar(context: context),
+      appBar: Birdify.appbar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(22.0),
@@ -19,17 +21,90 @@ class MeetUpDetailScreen extends StatelessWidget {
             children: [
               const _Header(),
               SizedBox(height: 50.h),
-              AutoSizeText(
-                'Appointment',
-                style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              )
+              const _Subtitle(subtitle: 'Appointment'),
+              SizedBox(height: 15.h),
+              const _AppointmentCard(),
+              SizedBox(height: 30.h),
+              const _Subtitle(subtitle: 'Location'),
+              SizedBox(height: 15.h),
+              const _LocationCard(),
+              SizedBox(height: 10.h),
+              const _LocationMap(),
+              SizedBox(height: 30.h),
+              const _Subtitle(subtitle: 'Payment'),
+              SizedBox(height: 15.h),
+              const _PaymentButton(),
+              SizedBox(height: 65.h),
+              // TODO: Implement List of Participants
             ],
           ),
         ),
       ),
     ));
+  }
+}
+
+class _Subtitle extends StatelessWidget {
+  const _Subtitle({Key? key, required this.subtitle}) : super(key: key);
+
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return AutoSizeText(
+      subtitle,
+      style: Theme.of(context).textTheme.subtitle2?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+    );
+  }
+}
+
+class _AppointmentCard extends StatelessWidget {
+  const _AppointmentCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Birdify.card(
+        height: 85.h,
+        width: 384.w,
+        child: Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AutoSizeText(
+                    '8:30 - 11:00 am',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.copyWith(fontWeight: FontWeight.w800),
+                  ),
+                  AutoSizeText(
+                    'Sat 8/20/22',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.copyWith(fontWeight: FontWeight.w300),
+                  )
+                ],
+              ),
+              Birdify.button(
+                child: const AutoSizeText("Add to Calendar"),
+                onClick: () {},
+                height: 37.h,
+                width: 158.w,
+              )
+            ],
+          ),
+        ));
   }
 }
 
@@ -46,24 +121,9 @@ class _Header extends StatelessWidget {
       children: [
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 280.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                'Kèo của @Khang',
-                maxLines: 2,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              SizedBox(height: 10.h),
-              AutoSizeText(
-                '#meeting4455',
-                maxLines: 2,
-                style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                      fontWeight: FontWeight.w300,
-                      fontStyle: FontStyle.italic,
-                    ),
-              ),
-            ],
+          child: Birdify.title(
+            title: "Kèo của @Khang",
+            subtitle: '#meeting4566',
           ),
         ),
         Icon(
@@ -71,6 +131,120 @@ class _Header extends StatelessWidget {
           size: 100.w,
         )
       ],
+    );
+  }
+}
+
+class _LocationCard extends StatelessWidget {
+  const _LocationCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Birdify.card(
+      height: 100.h,
+      width: 384.w,
+      child: Padding(
+        padding: EdgeInsets.all(10.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AutoSizeText(
+              "Nhà thi đấu Phú Thọ",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 70.h,
+                maxWidth: 374.w,
+              ),
+              child: AutoSizeText(
+                "1 Lữ Gia, Phường 15, Quận 11, Thành phố Hồ Chí Minh",
+                maxLines: 2,
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      fontWeight: FontWeight.w300,
+                    ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LocationMap extends StatelessWidget {
+  const _LocationMap({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Birdify.card(
+      height: 257.h,
+      width: 384.w,
+      child: Container(
+        color: Colors.amberAccent,
+      ),
+    );
+  }
+}
+
+class _PaymentButton extends StatelessWidget {
+  const _PaymentButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Birdify.stackCard(
+      height: 60.h,
+      width: 384.w,
+      child: Padding(
+        padding: EdgeInsets.all(10.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.circle_outlined,
+                  size: 14.w,
+                ),
+                SizedBox(width: 5.w),
+                AutoSizeText(
+                  'Total Price',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(fontWeight: FontWeight.w800),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                AutoSizeText(
+                  "50000",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(fontWeight: FontWeight.w800),
+                ),
+                AutoSizeText(
+                  "VND",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(fontWeight: FontWeight.w300),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+      onTap: () => Get.to(
+        () => const PaymentScreen(),
+      ),
     );
   }
 }

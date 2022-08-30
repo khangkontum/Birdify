@@ -39,7 +39,9 @@ class MeetupScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Center(
             child: Birdify.meetUpCard(
-              onTap: () => Get.to(const MeetUpDetailScreen()),
+              onTap: () => Get.to(
+                () => const MeetUpDetailScreen(),
+              ),
             ),
           );
         },

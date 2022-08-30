@@ -54,6 +54,7 @@ dependencies:
   iconsax: ^0.0.8
   get: ^4.6.5
   filter_list: ^1.0.2
+  # google_maps_flutter: ^2.1.12
 
 dev_dependencies:
   flutter_test:
