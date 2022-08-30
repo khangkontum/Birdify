@@ -10,7 +10,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-  StreamSubscription<User>? userSubcription;
+  StreamSubscription<User>? userSubscription;
 
   AuthBloc(this._authRepository)
       : super(const AuthState._(
@@ -22,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<LoggedOutEvent>(_handleLoggedOutEvent);
 
-    userSubcription = _authRepository.user.listen((user) {
+    userSubscription = _authRepository.user.listen((user) {
       add(LoggedInEvent(user: user));
     });
   }
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Future<void> close() {
-    userSubcription?.cancel();
+    userSubscription?.cancel();
     return super.close();
   }
 }
