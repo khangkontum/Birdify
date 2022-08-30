@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mobile_final/presentation/screens/home/chat/chat-screen.dart';
 import 'package:mobile_final/presentation/screens/home/club/club-screen.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-screen.dart';
 import 'package:mobile_final/presentation/screens/home/notification/notification-screen.dart';
@@ -12,8 +13,9 @@ class HomeScreen extends StatefulWidget {
   static Page page() => const MaterialPage<void>(child: HomeScreen());
 
   static final List<Widget> _routeOption = <Widget>[
-    MeetupScreen(),
+    const MeetupScreen(),
     const ClubScreen(),
+    const ChatScreen(),
     const NotificationScreen(),
     const ProfileScreen(),
   ];
@@ -43,7 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
           tabs: const [
             GButton(icon: Iconsax.activity, text: 'Meet Ups'),
             GButton(icon: Iconsax.cloud, text: 'Clubs'),
-            GButton(icon: Iconsax.notification, text: 'Notifications'),
+            GButton(icon: Iconsax.message, text: 'Chat'),
+            GButton(icon: Iconsax.notification, text: 'Noti'),
             GButton(icon: Iconsax.user, text: 'Profile'),
           ],
           selectedIndex: _selectedIndex,
