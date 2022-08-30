@@ -52,7 +52,6 @@ class Birdify {
 
   static AppBar appbarWithoutBack({
     List<Widget> actions = const [],
-    required BuildContext context,
   }) {
     return AppBar(
       foregroundColor: Colors.black,

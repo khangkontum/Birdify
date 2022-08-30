@@ -54,6 +54,8 @@ dependencies:
   iconsax: ^0.0.8
   get: ^4.6.5
   filter_list: ^1.0.2
+  dropdown_search: ^5.0.2
+  flutter_chat_ui: ^1.6.4
   # google_maps_flutter: ^2.1.12
 
 dev_dependencies:

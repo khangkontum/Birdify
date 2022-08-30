@@ -8,32 +8,32 @@ import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-detail-screen.dart';
 
 class MeetupScreen extends StatelessWidget {
-  MeetupScreen({super.key});
+  const MeetupScreen({super.key});
 
-  final widgetList = [
-    SizedBox(
-      height: 105.h,
-      width: 384.h,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          onPrimary: Colors.black,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.zero),
-              side: BorderSide(color: Colors.black)),
-          // padding: EdgeInsets.all(10.0.w),
-          shadowColor: Colors.black,
-        ),
-        onPressed: () {},
-        child: const AutoSizeText('adu'),
-      ),
-    ),
-  ];
+  // final widgetList = [
+  //   SizedBox(
+  //     height: 105.h,
+  //     width: 384.h,
+  //     child: ElevatedButton(
+  //       style: ElevatedButton.styleFrom(
+  //         primary: Colors.white,
+  //         onPrimary: Colors.black,
+  //         shape: const RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(Radius.zero),
+  //             side: BorderSide(color: Colors.black)),
+  //         // padding: EdgeInsets.all(10.0.w),
+  //         shadowColor: Colors.black,
+  //       ),
+  //       onPressed: () {},
+  //       child: const AutoSizeText('adu'),
+  //     ),
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Birdify.appbarWithoutBack(context: context),
+      appBar: Birdify.appbarWithoutBack(),
       body: ListView.builder(
         itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
