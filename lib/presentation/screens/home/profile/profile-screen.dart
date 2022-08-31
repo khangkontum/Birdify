@@ -117,42 +117,76 @@ class _MyProfile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width / 4,
-                            height: height / 16.5,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                elevation: 0,
-                                primary: Colors.black,
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content: MyHistory(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                'History',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16.5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // const SizedBox(height: 10),
+                      // Row(
+                      //   children: [
+                      //     SizedBox(
+                      //       width: width / 4,
+                      //       height: height / 16.5,
+                      //       child: TextButton(
+                      //         style: TextButton.styleFrom(
+                      //           elevation: 0,
+                      //           primary: Colors.black,
+                      //           textStyle: Theme.of(context)
+                      //               .textTheme
+                      //               .bodyText1
+                      //               ?.copyWith(fontWeight: FontWeight.bold),
+                      //         ),
+                      //         onPressed: () {
+                      //           showDialog(
+                      //             context: context,
+                      //             builder: (context) => const AlertDialog(
+                      //               content: MyHistory(),
+                      //             ),
+                      //           );
+                      //         },
+                      //         child: const Text(
+                      //           'History',
+                      //           style: TextStyle(
+                      //             fontWeight: FontWeight.w700,
+                      //             fontSize: 16.5,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       const SizedBox(height: 20),
-                      const _OverviewButtonMatches(),
+                      Birdify.stackCard(
+                        height: 87.h,
+                        width: 362.w,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/matches.png'),
+                              SizedBox(width: 10.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    "Attended Meet Ups",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  AutoSizeText(
+                                    "${state.user.attendedMeetups!} meet ups",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ),
@@ -178,49 +212,6 @@ class _MyProfile extends StatelessWidget {
           child: InkWell(onTap: () {}),
         ),
       ),
-    );
-  }
-}
-
-class _OverviewButtonMatches extends StatelessWidget {
-  const _OverviewButtonMatches({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Birdify.stackCard(
-      height: 87.h,
-      width: 362.w,
-      child: Padding(
-        padding: EdgeInsets.all(10.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset('assets/matches.png'),
-            SizedBox(width: 10.h),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  "Attended Meet Ups",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 10.h),
-                AutoSizeText(
-                  "19 meet ups",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontWeight: FontWeight.w300),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-      onTap: () {},
     );
   }
 }
