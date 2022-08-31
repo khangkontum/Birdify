@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
-// import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
-// import 'package:mobile_final/presentation/screens/home/profile/profile-archivement-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-archivement-screen.dart';
 
 class ProfileHistoryScreen extends StatelessWidget {
   const ProfileHistoryScreen({Key? key}) : super(key: key);
@@ -130,8 +130,8 @@ class _MyProfile extends StatelessWidget {
                         height: height / 16,
                         width: width / 3.5,
                         child: FlatButton(
-                          // onPressed: () => Get.to(() => const ProfileScreen())
-                          onPressed: (){},
+                          onPressed: () => Get.to(() => const ProfileScreen()),
+                          // onPressed: (){},
                           child: Text(
                             'Overview',
                             style: TextStyle(
@@ -148,8 +148,8 @@ class _MyProfile extends StatelessWidget {
                         width: width / 3,
                         height: height / 16.5,
                         child: FlatButton(
-                          // onPressed: () => Get.to(() => const ProfileArchivementScreen()),
-                          onPressed: (){},
+                          onPressed: () => Get.to(() => const ProfileArchivementScreen()),
+                          // onPressed: (){},
                           child: Text(
                             'Archivement',
                             style: TextStyle(
@@ -359,9 +359,9 @@ class _BirdifyCard extends StatelessWidget {
                       AutoSizeText(
                         sMeetingID,
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                              fontWeight: FontWeight.w300,
-                              fontStyle: FontStyle.italic,
-                            ),
+                          fontWeight: FontWeight.w300,
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                     ],
                   ),

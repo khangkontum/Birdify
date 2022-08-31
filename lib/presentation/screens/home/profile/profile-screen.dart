@@ -367,10 +367,8 @@ class _OverviewButtonSkill extends StatelessWidget {
                         ),
                       ],
                     )
-                    
                   ],
                 ),
-                
               ],
             )
           ],

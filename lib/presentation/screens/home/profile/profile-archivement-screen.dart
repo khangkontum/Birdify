@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
-// import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
-// import 'package:mobile_final/presentation/screens/home/profile/profile-history-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-history-screen.dart';
 
 class ProfileArchivementScreen extends StatelessWidget {
   // const ProfileArchivementScreen({super.key});
@@ -130,8 +130,8 @@ class _MyProfile extends StatelessWidget {
                         height: height / 16,
                         width: width / 3.5,
                         child: FlatButton(
-                          // onPressed: () => Get.to(() => const ProfileScreen()),
-                          onPressed: (){},
+                          onPressed: () => Get.to(() => const ProfileScreen()),
+                          // onPressed: (){},
                           child: Text(
                             'Overview',
                             style: TextStyle(
@@ -167,8 +167,8 @@ class _MyProfile extends StatelessWidget {
                         width: width / 4,
                         height: height / 16.5,
                         child: FlatButton(
-                          // onPressed: () => Get.to(() => const ProfileHistoryScreen()),
-                          onPressed: (){},
+                          onPressed: () => Get.to(() => const ProfileHistoryScreen()),
+                          // onPressed: (){},
                           child: Text(
                             'History',
                             style: TextStyle(
@@ -239,11 +239,11 @@ class _MyProfile extends StatelessWidget {
     required double all,
     required Color color,
   }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
-        ),
-      );
+    ClipOval(
+      child: Container(
+        padding: EdgeInsets.all(all),
+        color: color,
+        child: child,
+      ),
+    );
 }
