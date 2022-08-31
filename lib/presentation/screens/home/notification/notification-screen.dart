@@ -108,7 +108,7 @@ class _GroupTile extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: Color.fromRGBO(0, 0, 0, 0.5),
+              color: const Color.fromRGBO(0, 0, 0, 0.5),
               width: 0.5.w,
             ),
           ),
@@ -123,31 +123,35 @@ class _GroupTile extends StatelessWidget {
                 Icon(
                   Icons.circle,
                   size: 40.w,
-                  color: Color.fromRGBO(255, 128, 0, 1),
+                  color: const Color.fromRGBO(255, 128, 0, 1),
                 ),
                 SizedBox(width: 22.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AutoSizeText(
-                          sUser,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(width: 3.w),
-                        AutoSizeText(
-                          sAction,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontWeight: FontWeight.w100),
-                        ),
-                      ],
+                    ConstrainedBox(
+                      constraints:
+                          BoxConstraints(maxHeight: 40.h, maxWidth: 50.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            sUser,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(width: 3.w),
+                          AutoSizeText(
+                            sAction,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
                     ),
                     if (sMeeting != '')
                       AutoSizeText(

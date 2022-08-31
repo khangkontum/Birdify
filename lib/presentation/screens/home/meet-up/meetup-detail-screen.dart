@@ -340,20 +340,6 @@ class _ParticipantsList extends StatelessWidget {
         SizedBox(height: 20.h),
         for (int index = 0; index < meetUp.participants.length; index += 1)
           ParticipantTile(participant: meetUp.participants[index])
-        // ListView.builder(
-        //   itemCount: meetUp.participants.length,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     return Row(
-        //       children: [
-        //         Image.network(
-        //           meetUp.participants[index].photo ?? "",
-        //           width: 100.w,
-        //           height: 100.w,
-        //         )
-        //       ],
-        //     );
-        //   },
-        // ),
       ],
     );
   }
@@ -383,6 +369,13 @@ class ParticipantTile extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                 ),
               ),
+            ),
+            SizedBox(width: 20.w),
+            AutoSizeText(
+              participant.name.toString(),
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
             )
           ],
         ),
