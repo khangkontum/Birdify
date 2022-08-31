@@ -1,16 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
-import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_final/logic/club/cubit/club_listing_cubit.dart';
-import 'package:mobile_final/logic/meetup/cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/logic/meetup/cubit/meetup_listing_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
-import 'package:mobile_final/presentation/screens/home/meet-up/create-meetup-screen.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/meetup-detail-screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
