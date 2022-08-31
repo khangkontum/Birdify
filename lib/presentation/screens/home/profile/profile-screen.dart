@@ -117,40 +117,40 @@ class _MyProfile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width / 4,
-                            height: height / 16.5,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                elevation: 0,
-                                primary: Colors.black,
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content: MyHistory(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                'History',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16.5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // const SizedBox(height: 10),
+                      // Row(
+                      //   children: [
+                      //     SizedBox(
+                      //       width: width / 4,
+                      //       height: height / 16.5,
+                      //       child: TextButton(
+                      //         style: TextButton.styleFrom(
+                      //           elevation: 0,
+                      //           primary: Colors.black,
+                      //           textStyle: Theme.of(context)
+                      //               .textTheme
+                      //               .bodyText1
+                      //               ?.copyWith(fontWeight: FontWeight.bold),
+                      //         ),
+                      //         onPressed: () {
+                      //           showDialog(
+                      //             context: context,
+                      //             builder: (context) => const AlertDialog(
+                      //               content: MyHistory(),
+                      //             ),
+                      //           );
+                      //         },
+                      //         child: const Text(
+                      //           'History',
+                      //           style: TextStyle(
+                      //             fontWeight: FontWeight.w700,
+                      //             fontSize: 16.5,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       const SizedBox(height: 20),
                       Birdify.stackCard(
                         height: 87.h,
