@@ -75,7 +75,7 @@ class _Body extends StatelessWidget {
               child: const Icon(Icons.add),
             ),
             body: ListView.builder(
-              itemCount: 4,
+              itemCount: state.clubs.length,
               itemBuilder: (BuildContext context, int index) {
                 return Center(
                   child: Column(
