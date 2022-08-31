@@ -3,8 +3,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 
-class CreatMeetupScreen extends StatelessWidget {
-  const CreatMeetupScreen({Key? key}) : super(key: key);
+class MeetupCreateScreen extends StatelessWidget {
+  const MeetupCreateScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

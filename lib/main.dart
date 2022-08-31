@@ -5,12 +5,11 @@ import 'package:get/route_manager.dart';
 import 'package:mobile_final/bloc_observer.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
-import 'package:mobile_final/data/repositories/meetup_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
+import 'package:mobile_final/logic/club/cubit/create_club_cubit.dart';
 import 'package:mobile_final/logic/meetup/create-meetup-cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
-import 'package:mobile_final/presentation/routers/router.dart';
 import 'package:mobile_final/presentation/style/style.dart';
 
 // final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
@@ -22,23 +21,21 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
 
   final AuthRepository authRepository = AuthRepository();
-  final MeetUpRepository meetUpRepository = MeetUpRepository();
 
   runApp(
     MyApp(
       authRepository: authRepository,
-      meetUpRepository: meetUpRepository,
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp(
-      {Key? key, required this.authRepository, required this.meetUpRepository})
-      : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.authRepository,
+  }) : super(key: key);
 
   final AuthRepository authRepository;
-  final MeetUpRepository meetUpRepository;
 
   // This widget is the root of your application.
   @override

@@ -69,15 +69,15 @@ class SignupForm extends StatelessWidget {
           // TODO: error handling
           context.loaderOverlay.hide();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Error")),
+            SnackBar(content: AutoSizeText(state.errorStatus)),
           );
         }
         if (state.status == SignupStatus.success) {
           context.loaderOverlay.hide();
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: AutoSizeText(state.errorStatus),
+            const SnackBar(
+              content: AutoSizeText("Success"),
             ),
           );
           Navigator.of(context).pop();

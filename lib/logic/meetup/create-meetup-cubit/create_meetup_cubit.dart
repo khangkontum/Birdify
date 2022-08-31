@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 
@@ -26,8 +27,15 @@ class CreateMeetupCubit extends Cubit<CreateMeetupState> {
         },
       );
       emit(state.copyWith(status: CreateMeetupStatus.success));
-    } catch (_) {
-      emit(state.copyWith(status: CreateMeetupStatus.error));
+    } on DioError catch (e) {
+      emit(
+        state.copyWith(
+          status: CreateMeetupStatus.error,
+          errorStatus: e.message,
+        ),
+      );
+    } catch (e) {
+      print(e);
     }
   }
 }
