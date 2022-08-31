@@ -23,22 +23,25 @@ class DetailProfileCubit extends Cubit<DetailProfileState> {
         emit(state.copyWith(status: DetailProfileStatus.submitting));
 
         var response = await apiRepository.request(
-          postfix: '/user/auth/info',
+          postfix: '/auth/info',
           method: 'GET',
         );
 
-        emit(state.copyWith(
-          status: DetailProfileStatus.success,
-          user: AppUser(
-            id: response.data['user']['uid'],
-            name: response.data['user']['name'],
-            email: response.data['user']['email'],
-            photo: response.data['user']['avatar'],
-            attendedMeetups: response.data['stats']['attendedMeetups'],
-            totalPaid: response.data['stats']['totalPaid'],
-            totalUnpaid: response.data['stats']['totalUnpaid'],
+        emit(
+          state.copyWith(
+            status: DetailProfileStatus.success,
+            user: AppUser(
+              id: response.data['user']['uid'],
+              name: response.data['user']['name'],
+              email: response.data['user']['email'],
+              photo: response.data['user']['avatar'],
+              location: response.data['user']['location'],
+              attendedMeetups: response.data['stats']['attendedMeetups'],
+              totalPaid: response.data['stats']['totalPaid'],
+              totalUnpaid: response.data['stats']['totalUnpaid'],
+            ),
           ),
-        ));
+        );
       } on DioError catch (e) {
         emit(
           state.copyWith(

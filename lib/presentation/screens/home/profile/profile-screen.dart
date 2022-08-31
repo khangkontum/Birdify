@@ -1,7 +1,11 @@
 import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_final/data/repositories/api_repository.dart';
+import 'package:mobile_final/logic/profile/profile_detail_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/profile/profile-history-screen.dart';
 
@@ -12,8 +16,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Birdify.appbarWithoutBack(),
-      body: Center(
-        child: const _MyProfile(),
+      body: BlocProvider(
+        create: (context) => DetailProfileCubit(
+          apiRepository: context.read<ApiRepository>(),
+        ),
+        child: const Center(
+          child: _MyProfile(),
+        ),
       ),
     );
   }
@@ -31,115 +40,126 @@ class _MyProfile extends StatelessWidget {
 
     return Scaffold(
       // body: profile()
-      body: Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage('assets/bg.png'),
-                fit: BoxFit.cover,
-              )),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                // height: height * 0.6,
-                height: 620.h,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
-                  ),
+      body: BlocBuilder<DetailProfileCubit, DetailProfileState>(
+        builder: (context, state) {
+          if (state.status != DetailProfileStatus.success) {
+            return Container(
+              color: Colors.white,
+              child: const Center(
+                child: SpinKitFadingFour(
+                  color: Colors.black,
                 ),
               ),
-            ),
-            Positioned(
-              top: 90.h,
-              child: Column(
-                children: [
-                  buildImage(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Text(
-                          'Nguyen Van A',
-                          style: TextStyle(
-                              fontSize: 28,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700),
-                        ),
-                        // Icon(Icons.edit),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.edit),
-                          label: Text(''),
-                          style: TextButton.styleFrom(
-                            primary: Colors.black,
-                          ),
-                        ),
-                      ],
+            );
+          }
+
+          return Container(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage('assets/bg.png'),
+                    fit: BoxFit.cover,
+                  )),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    // height: height * 0.6,
+                    height: 620.h,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Row(
+                ),
+                Positioned(
+                  top: 90.h,
+                  child: Column(
                     children: [
-                      Icon(Icons.location_pin),
-                      Text(
-                        'Ho Chi Minh City',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: width / 4,
-                        height: height / 16.5,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            elevation: 0,
-                            primary: Colors.black,
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const AlertDialog(
-                                content: MyHistory(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'History',
+                      buildImage(),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(
+                            state.user.name!,
                             style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16.5,
+                                fontSize: 28,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          // Icon(Icons.edit),
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.edit),
+                            label: Text(''),
+                            style: TextButton.styleFrom(
+                              primary: Colors.black,
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_pin),
+                          Text(
+                            state.user.location!,
+                            style: const TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: width / 4,
+                            height: height / 16.5,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                elevation: 0,
+                                primary: Colors.black,
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content: MyHistory(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'History',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      const _OverviewButtonMatches(),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const _OverviewButtonMatches(),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
