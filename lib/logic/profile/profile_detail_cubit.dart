@@ -37,8 +37,8 @@ class DetailProfileCubit extends Cubit<DetailProfileState> {
               photo: response.data['user']['avatar'],
               location: response.data['user']['location'],
               attendedMeetups: response.data['stats']['attendedMeetups'],
-              totalPaid: response.data['stats']['totalPaid'],
-              totalUnpaid: response.data['stats']['totalUnpaid'],
+              totalPaid: response.data['stats']['totalPaid'].toDouble(),
+              totalUnpaid: response.data['stats']['totalUnpaid'].toDouble(),
             ),
           ),
         );
