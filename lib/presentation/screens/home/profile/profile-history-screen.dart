@@ -189,14 +189,14 @@ class _MyProfile extends StatelessWidget {
                         sDate: 'Thu 8/18/22',
                         sStatus: 'Chưa trả tiền',
                         sHost: 'Kèo của @Khang',
-                        sMeetingID: '#meeting4557',
+                        sMeetingID: '#meeting57',
                       ),
                       _BirdifyCard(
                         sTime: '6:30 - 8:30 am',
                         sDate: 'Wed 8/10/22',
                         sStatus: 'Đã thanh toán',
                         sHost: 'Kèo của @Khang',
-                        sMeetingID: '#meeting4550',
+                        sMeetingID: '#meeting50',
                       ),
                     ],
                   ),
@@ -262,12 +262,6 @@ class _BirdifyCard extends StatelessWidget {
     String this.sStatus = '',
     String this.sHost = '',
     String this.sMeetingID = '',
-
-    // required this.sTime,
-    // required this.sDate,
-    // required this.sStatus,
-    // required this.sHost,
-    // required this.sMeetingID,
   }) : super(key: key);
 
   final String sTime;
@@ -330,7 +324,7 @@ class _BirdifyCard extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
-                                ?.copyWith(fontWeight: FontWeight.w800),
+                                ?.copyWith(fontWeight: FontWeight.w700),
                           ),
                           SizedBox(width: 2.w),
                           Icon(
@@ -372,6 +366,44 @@ class _BirdifyCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+class MyHistory extends StatelessWidget {
+  const MyHistory({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _BirdifyCard(
+          sTime: '8:30 - 11:00 am',
+          sDate: 'Thu 8/18/22',
+          sStatus: 'Chưa trả tiền',
+          sHost: 'Kèo của @Khang',
+          sMeetingID: '#meeting57',
+        ),
+        _BirdifyCard(
+          sTime: '4:30 - 6:30 pm',
+          sDate: 'Wed 8/10/22',
+          sStatus: 'Đã thanh toán',
+          sHost: 'Kèo của @Khang',
+          sMeetingID: '#meeting51',
+        ),
+        _BirdifyCard(
+          sTime: '6:30 - 8:30 am',
+          sDate: 'Wed 8/10/22',
+          sStatus: 'Đã thanh toán',
+          sHost: 'Kèo của @Khang',
+          sMeetingID: '#meeting50',
+        ),
+      ],
     );
   }
 }

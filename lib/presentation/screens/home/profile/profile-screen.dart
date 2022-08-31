@@ -153,8 +153,16 @@ class _MyProfile extends StatelessWidget {
                         width: width / 3,
                         height: height / 16.5,
                         child: FlatButton(
-                          onPressed: () => Get.to(() => const ProfileArchivementScreen()),
+                          // onPressed: () => Get.to(() => const ProfileArchivementScreen()),
                           // onPressed: (){},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                content: MyArchivement(),
+                              ),
+                            );
+                          },
                           child: Text(
                             'Archivement',
                             style: TextStyle(
@@ -169,8 +177,16 @@ class _MyProfile extends StatelessWidget {
                         width: width / 4,
                         height: height / 16.5,
                         child: FlatButton(
-                          onPressed: () => Get.to(() => const ProfileHistoryScreen()),
+                          // onPressed: () => Get.to(() => const ProfileHistoryScreen()),
                           // onPressed: (){},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                content: MyHistory(),
+                              ),
+                            );
+                          },
                           child: Text(
                             'History',
                             style: TextStyle(
@@ -247,7 +263,7 @@ class _OverviewButtonMatches extends StatelessWidget {
   Widget build(BuildContext context) {
     return Birdify.stackCard(
       height: 87.h,
-      width: 353.w,
+      width: 362.w,
       child: Padding(
         padding: EdgeInsets.all(10.w),
         child: Row(
@@ -311,7 +327,7 @@ class _OverviewButtonSkill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Birdify.stackCard(
       height: 87.h,
-      width: 353.w,
+      width: 362.w,
       child: Padding(
         padding: EdgeInsets.all(10.w),
         child: Row(

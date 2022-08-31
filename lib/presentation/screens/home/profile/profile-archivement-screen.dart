@@ -15,14 +15,14 @@ class ProfileArchivementScreen extends StatelessWidget {
     return Scaffold(
       appBar: Birdify.appbarWithoutBack(),
       body: Center(
-        child: const _MyProfile(),
+        child: const _MyProfileArchivement(),
       ),
     );
   }
 }
 
-class _MyProfile extends StatelessWidget {
-  const _MyProfile({
+class _MyProfileArchivement extends StatelessWidget {
+  const _MyProfileArchivement({
     Key? key,
   }) : super(key: key);
 
@@ -246,4 +246,27 @@ class _MyProfile extends StatelessWidget {
         child: child,
       ),
     );
+}
+
+
+
+class MyArchivement extends StatelessWidget {
+  const MyArchivement({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset('assets/archivement.png'),
+        SizedBox(height: 10),
+        Text (
+          "You have not participated in any tournaments yet.",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, fontFamily: 'Roboto', fontWeight: FontWeight.w700,),
+        ),
+      ],
+    );
+  }
 }
