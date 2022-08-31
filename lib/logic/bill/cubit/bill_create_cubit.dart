@@ -20,7 +20,7 @@ class BillCreateCubit extends Cubit<BillCreateState> {
     if (state.currentItem != BillItem.empty) {
       emit(
         state.copyWith(
-            bill: state.bill.add(state.currentItem),
+            bill: state.bill + [state.currentItem],
             status: BillCreateStatus.initial),
       );
     }
