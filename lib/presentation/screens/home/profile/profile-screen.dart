@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
+import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/logic/profile/profile_detail_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/profile/profile-edit-screen.dart';
@@ -17,6 +18,19 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Birdify.appbarWithoutBack(),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(
+            side: BorderSide(width: 1.0, color: Colors.black)),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        child: const Icon(
+          Icons.logout_rounded,
+        ),
+        onPressed: () {
+          context.read<AuthBloc>().add(LoggedOutEvent());
+        },
+      ),
       body: BlocProvider(
         create: (context) => DetailProfileCubit(
           apiRepository: context.read<ApiRepository>(),
