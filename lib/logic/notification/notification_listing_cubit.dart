@@ -38,6 +38,7 @@ class ListingNotificationCubit extends Cubit<ListingNotificationState> {
         emit(state.copyWith(
           status: ListingNotificationStatus.success,
           notifications: tempNotifications,
+          uid: apiRepository.currentUid,
         ));
       } on DioError catch (e) {
         emit(

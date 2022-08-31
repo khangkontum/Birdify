@@ -62,7 +62,10 @@ class _Body extends StatelessWidget {
                   child: Column(
                     children: [
                       _GroupTile(
-                          sUser: state.notifications[index].creator.name!,
+                          sUser:
+                              state.uid == state.notifications[index].creator.id
+                                  ? 'You'
+                                  : state.notifications[index].creator.name!,
                           sAction: state.notifications[index].action,
                           sMeeting: state.notifications[index].meetup),
                       SizedBox(height: 15.h),

@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class ApiRepository {
   late Dio dio;
   final AuthRepository authRepository;
+  var currentUid = '';
 
   ApiRepository({
     required this.authRepository,
@@ -33,6 +34,7 @@ class ApiRepository {
     data = const {},
   }) async {
     var token = await authRepository.token;
+    currentUid = authRepository.currentUser.id;
     return dio.request(
       postfix,
       options: Options(
