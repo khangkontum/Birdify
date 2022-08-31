@@ -1,48 +1,78 @@
-// import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_final/data/repositories/api_repository.dart';
+import 'package:mobile_final/logic/notification/notification_listing_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Birdify.appbarWithoutBack(),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Birdify.title(
-              title: "Notifications",
+    return BlocProvider(
+      create: (context) => ListingNotificationCubit(
+        context.read<ApiRepository>(),
+      ),
+      child: const _Body(),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ListingNotificationCubit, ListingNotificationState>(
+      listener: (context, state) {
+        if (state.status == ListingNotificationStatus.submitting) {
+          context.loaderOverlay.show();
+        }
+        if (state.status == ListingNotificationStatus.error) {
+          context.loaderOverlay.hide();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: AutoSizeText(state.errorStatus)),
+          );
+        }
+        if (state.status == ListingNotificationStatus.success) {
+          context.loaderOverlay.hide();
+        }
+      },
+      child: BlocBuilder<ListingNotificationCubit, ListingNotificationState>(
+        builder: (context, state) {
+          if (state.status != ListingNotificationStatus.success) {
+            return const Center(
+              child: SpinKitFadingFour(
+                color: Colors.black,
+              ),
+            );
+          }
+          return Scaffold(
+            appBar: Birdify.appbarWithoutBack(),
+            body: ListView.builder(
+              itemCount: state.notifications.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Center(
+                  child: Column(
+                    children: [
+                      _GroupTile(
+                          sUser: state.notifications[index].creator.name!,
+                          sAction: state.notifications[index].action,
+                          sMeeting: state.notifications[index].meetup),
+                      SizedBox(height: 15.h),
+                    ],
+                  ),
+                );
+              },
             ),
-            const _GroupTile(
-              sUser: '@Khang',
-              sAction: 'invited you to join',
-              sMeeting: '#meeting4556',
-            ),
-            SizedBox(height: 10.h),
-            const _GroupTile(
-              sUser: '@Khang',
-              sAction: 'reminds you to pay for',
-              sMeeting: '#meeting4556',
-            ),
-            SizedBox(height: 10.h),
-            const _GroupTile(sUser: '@Khang',
-              sAction: 'created a new meeting',
-              sMeeting: '#meeting4556',
-            ),
-            SizedBox(height: 10.h),
-            const _GroupTile(
-              sUser: 'Club @20CTT1',
-              sAction: 'have 6 new meetings',
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -72,7 +102,7 @@ class _GroupTile extends StatelessWidget {
         height: 79.h,
         width: 384.w,
         decoration: BoxDecoration(
-            border: Border(
+          border: Border(
             top: BorderSide(
               color: Color.fromRGBO(0, 0, 0, 0.5),
               width: 0.5.w,
@@ -119,9 +149,9 @@ class _GroupTile extends StatelessWidget {
                       AutoSizeText(
                         sMeeting,
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                          fontWeight: FontWeight.w100,
-                          fontStyle: FontStyle.italic,
-                        ),
+                              fontWeight: FontWeight.w100,
+                              fontStyle: FontStyle.italic,
+                            ),
                       ),
                   ],
                 )

@@ -23,7 +23,7 @@ class ListingNotificationCubit extends Cubit<ListingNotificationState> {
         emit(state.copyWith(status: ListingNotificationStatus.submitting));
 
         var response = await apiRepository.request(
-          postfix: '/notifications/list',
+          postfix: '/notification/list',
           method: 'GET',
         );
 

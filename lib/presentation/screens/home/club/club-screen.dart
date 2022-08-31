@@ -1,18 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/data/models/club.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
-import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile_final/logic/club/cubit/club_create_cubit.dart';
 import 'package:mobile_final/logic/club/cubit/club_listing_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/club/club-create-screen.dart';
 import 'package:mobile_final/presentation/screens/home/club/club-detail-screen.dart';
-import 'package:mobile_final/presentation/screens/home/meet-up/meetup-detail-screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
