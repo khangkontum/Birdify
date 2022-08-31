@@ -1,44 +1,80 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile_final/data/models/meetup.dart';
+import 'package:mobile_final/data/repositories/api_repository.dart';
+import 'package:mobile_final/logic/meetup/cubit/meetup_detail_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/payment-screen.dart';
 
 class MeetUpDetailScreen extends StatelessWidget {
-  const MeetUpDetailScreen({Key? key}) : super(key: key);
+  const MeetUpDetailScreen({
+    Key? key,
+    required this.meetUpId,
+    required this.clubCode,
+  }) : super(key: key);
+
+  final String meetUpId;
+  final String clubCode;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: Birdify.appbar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(22.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const _Header(),
-              SizedBox(height: 50.h),
-              const _Subtitle(subtitle: 'Appointment'),
-              SizedBox(height: 15.h),
-              const _AppointmentCard(),
-              SizedBox(height: 30.h),
-              const _Subtitle(subtitle: 'Location'),
-              SizedBox(height: 15.h),
-              const _LocationCard(),
-              SizedBox(height: 10.h),
-              const _LocationMap(),
-              SizedBox(height: 30.h),
-              const _Subtitle(subtitle: 'Payment'),
-              SizedBox(height: 15.h),
-              const _PaymentButton(),
-              SizedBox(height: 65.h),
-              // TODO: Implement List of Participants
-            ],
-          ),
-        ),
+        child: BlocProvider(
+      create: (context) => DetailMeetUpCubit(
+          apiRepository: context.read<ApiRepository>(),
+          meetUpId: meetUpId,
+          clubCode: clubCode),
+      child: BlocBuilder<DetailMeetUpCubit, DetailMeetUpState>(
+        builder: (context, state) {
+          if (state.status != DetailMeetUpStatus.success) {
+            return Container(
+              color: Colors.white,
+              child: const Center(
+                child: SpinKitFadingFour(
+                  color: Colors.black,
+                ),
+              ),
+            );
+          }
+          return Scaffold(
+            appBar: Birdify.appbar(),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _Header(
+                      creator: state.meetUp.creator.name ?? 'Unknown',
+                      meetUpId: state.meetUp.code,
+                    ),
+                    SizedBox(height: 50.h),
+                    const _Subtitle(subtitle: 'Appointment'),
+                    SizedBox(height: 15.h),
+                    _AppointmentCard(meetUp: state.meetUp),
+                    SizedBox(height: 30.h),
+                    const _Subtitle(subtitle: 'Location'),
+                    SizedBox(height: 15.h),
+                    const _LocationCard(),
+                    SizedBox(height: 10.h),
+                    const _LocationMap(),
+                    SizedBox(height: 30.h),
+                    const _Subtitle(subtitle: 'Payment'),
+                    SizedBox(height: 15.h),
+                    const _PaymentButton(),
+                    SizedBox(height: 65.h),
+                    // TODO: Implement List of Participants
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     ));
   }
@@ -61,9 +97,9 @@ class _Subtitle extends StatelessWidget {
 }
 
 class _AppointmentCard extends StatelessWidget {
-  const _AppointmentCard({
-    Key? key,
-  }) : super(key: key);
+  const _AppointmentCard({Key? key, required this.meetUp}) : super(key: key);
+
+  final MeetUp meetUp;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +117,11 @@ class _AppointmentCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AutoSizeText(
-                    '8:30 - 11:00 am',
+                    '${formatDate(meetUp.startTime, [
+                          HH,
+                          ':',
+                          nn
+                        ])}-${formatDate(meetUp.endTime, [HH, ':', nn])}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
@@ -111,7 +151,13 @@ class _AppointmentCard extends StatelessWidget {
 class _Header extends StatelessWidget {
   const _Header({
     Key? key,
+    String,
+    required this.creator,
+    required this.meetUpId,
   }) : super(key: key);
+
+  final String creator;
+  final String meetUpId;
 
   @override
   Widget build(BuildContext context) {
@@ -122,8 +168,8 @@ class _Header extends StatelessWidget {
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 280.w),
           child: Birdify.title(
-            title: "Kèo của @Khang",
-            subtitle: '#meeting4566',
+            title: "Meet-Up by @$creator",
+            subtitle: meetUpId,
           ),
         ),
         Icon(
@@ -137,6 +183,8 @@ class _Header extends StatelessWidget {
 
 class _LocationCard extends StatelessWidget {
   const _LocationCard({Key? key}) : super(key: key);
+
+  // final String
 
   @override
   Widget build(BuildContext context) {

@@ -74,7 +74,10 @@ class MeetupScreen extends StatelessWidget {
                     child: Birdify.meetUpCard(
                       meetUp: state.meetUps[index],
                       onTap: () => Get.to(
-                        () => const MeetUpDetailScreen(),
+                        () => MeetUpDetailScreen(
+                          meetUpId: state.meetUps[index].code,
+                          clubCode: state.meetUps[index].clubCode,
+                        ),
                       ),
                     ),
                   );
