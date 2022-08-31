@@ -1,15 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile_final/data/models/app_user.dart';
 
 class Club extends Equatable {
-  final String sId;
   final String name;
   final String code;
-  final String creator;
-  final List<String> members;
+  final AppUser creator;
+  final List<AppUser> members;
   final String inviteCode;
 
   const Club({
-    required this.sId,
     required this.name,
     required this.code,
     required this.creator,
@@ -18,26 +17,27 @@ class Club extends Equatable {
   });
 
   static const empty = Club(
-    sId: '',
     name: '',
     code: '',
-    creator: '',
+    creator: AppUser.empty,
     members: [],
     inviteCode: '',
   );
 
   factory Club.fromJson(Map<String, dynamic> json) => Club(
-        sId: json['_id'],
         name: json['name'],
         code: json['code'],
-        creator: json['creator'],
-        members: json['members'].cast<String>(),
+        creator: AppUser.fromJson(json['creator']),
+        members: List<AppUser>.from(
+          json['members'].map(
+            (rawUser) => AppUser.fromJson(rawUser),
+          ),
+        ),
         inviteCode: json['inviteCode'],
       );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
     data['name'] = name;
     data['code'] = code;
     data['creator'] = creator;
@@ -48,7 +48,6 @@ class Club extends Equatable {
 
   @override
   List<Object?> get props => [
-        sId,
         name,
         code,
         creator,

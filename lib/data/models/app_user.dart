@@ -20,6 +20,12 @@ class AppUser extends Equatable {
 
   static const empty = AppUser(id: '');
 
+  factory AppUser.fromJson(Map<String, dynamic> json) => AppUser(
+        id: json['uid'],
+        name: json['name'],
+        photo: json['avatar'],
+      );
+
   bool get isEmpty => this == AppUser.empty;
   bool get isNotEmpty => this != AppUser.empty;
 

@@ -7,7 +7,6 @@ import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:mobile_final/logic/club/cubit/club_create_cubit.dart';
-import 'package:mobile_final/logic/meetup/create-meetup-cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
 import 'package:mobile_final/presentation/style/style.dart';
@@ -56,10 +55,6 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(
               create: (context) => AuthBloc(authRepository),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  CreateMeetupCubit(context.read<ApiRepository>()),
             ),
           ],
           child: const AppView(),
