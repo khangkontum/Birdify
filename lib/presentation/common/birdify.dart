@@ -221,10 +221,14 @@ class _BirdifyCard extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                           SizedBox(width: 2.w),
-                          Icon(
-                            Icons.circle,
-                            size: 14.w,
-                          )
+                          Icon(Icons.circle,
+                              size: 14.w,
+                              color: meetUp.status == 'paid' ||
+                                      meetUp.status == 'past'
+                                  ? Colors.black
+                                  : meetUp.status == 'unpaid'
+                                      ? Colors.red
+                                      : Colors.green)
                         ],
                       ),
                     ],

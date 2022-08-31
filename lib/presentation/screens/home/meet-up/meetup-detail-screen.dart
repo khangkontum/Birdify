@@ -53,6 +53,7 @@ class MeetUpDetailScreen extends StatelessWidget {
                       creator: state.meetUp.creator.name ?? 'Unknown',
                       clubCode: state.meetUp.clubCode,
                       meetUpId: state.meetUp.code,
+                      status: state.meetUp.status,
                     ),
                     SizedBox(height: 50.h),
                     const _Subtitle(subtitle: 'Appointment'),
@@ -156,11 +157,13 @@ class _Header extends StatelessWidget {
     required this.creator,
     required this.clubCode,
     required this.meetUpId,
+    required this.status,
   }) : super(key: key);
 
   final String creator;
   final String clubCode;
   final String meetUpId;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
@@ -175,10 +178,13 @@ class _Header extends StatelessWidget {
             subtitle: "@$clubCode#$meetUpId",
           ),
         ),
-        Icon(
-          Icons.circle,
-          size: 100.w,
-        )
+        Icon(Icons.circle,
+            size: 100.w,
+            color: status == 'paid' || status == 'past'
+                ? Colors.black
+                : status == 'unpaid'
+                    ? Colors.red
+                    : Colors.green)
       ],
     );
   }

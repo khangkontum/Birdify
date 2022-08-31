@@ -178,6 +178,7 @@ class _DurationMeetUp extends StatelessWidget {
                 previous.durationChosen != current.durationChosen,
             builder: (context, state) {
               return TextFormField(
+                initialValue: "120",
                 onChanged: (value) => context
                     .read<CreateMeetupCubit>()
                     .durationChosenChanged(value),
