@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/logic/profile/profile_detail_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-edit-screen.dart';
 import 'package:mobile_final/presentation/screens/home/profile/profile-history-screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -88,16 +89,18 @@ class _MyProfile extends StatelessWidget {
                         children: [
                           Text(
                             state.user.name!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 28,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w700),
                           ),
                           // Icon(Icons.edit),
                           TextButton.icon(
-                            onPressed: () {},
-                            icon: Icon(Icons.edit),
-                            label: Text(''),
+                            onPressed: () {
+                              Get.to(() => const ProfileEditScreen());
+                            },
+                            icon: const Icon(Icons.edit),
+                            label: const Text(''),
                             style: TextButton.styleFrom(
                               primary: Colors.black,
                             ),
@@ -175,6 +178,78 @@ class _MyProfile extends StatelessWidget {
                                   SizedBox(height: 10.h),
                                   AutoSizeText(
                                     "${state.user.attendedMeetups!} meet ups",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
+                      const SizedBox(height: 20),
+                      Birdify.stackCard(
+                        height: 87.h,
+                        width: 362.w,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/matches.png'),
+                              SizedBox(width: 10.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    "Total Paid",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  AutoSizeText(
+                                    "${state.user.totalPaid!} VND",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
+                      const SizedBox(height: 20),
+                      Birdify.stackCard(
+                        height: 87.h,
+                        width: 362.w,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.w),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/matches.png'),
+                              SizedBox(width: 10.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    "Total Unpaid",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  AutoSizeText(
+                                    "${state.user.totalUnpaid!} VND",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1

@@ -8,8 +8,7 @@ part 'edit_profile_state.dart';
 class EditProfileCubit extends Cubit<EditProfileState> {
   final ApiRepository apiRepository;
 
-  EditProfileCubit({required this.apiRepository})
-      : super(EditProfileState.initial());
+  EditProfileCubit(this.apiRepository) : super(EditProfileState.initial());
 
   void nameChanged(String value) {
     emit(state.copyWith(
