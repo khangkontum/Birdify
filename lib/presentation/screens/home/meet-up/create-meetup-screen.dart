@@ -78,7 +78,7 @@ class body extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
         ),
-        SizedBox(height: 7.h),
+        SizedBox(height: 20.h),
         const _MeetUpNameInput(),
         SizedBox(height: 7.h),
         const _MeetUpLocationInput(),
@@ -90,7 +90,7 @@ class body extends StatelessWidget {
         const _TimeMeetUp(),
         SizedBox(height: 7.h),
         const _DurationMeetUp(),
-        SizedBox(height: 5.h),
+        SizedBox(height: 20.h),
         const _CreateMeetingButton()
       ],
     );

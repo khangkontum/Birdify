@@ -1,9 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/logic/club/cubit/club_detail_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
@@ -50,7 +53,85 @@ class ClubDetailScreen extends StatelessWidget {
                 },
                 child: const Icon(Icons.add),
               ),
-              appBar: Birdify.appbar(),
+              appBar: Birdify.appbar(
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      print(state.club.inviteCode);
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => Dialog(
+                            backgroundColor: Color(0xFFfafafa),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            elevation: 20,
+                            child: Container(
+                              padding: EdgeInsets.all(22.w),
+                              height: 200.h,
+                              child: Column(
+                                children: [
+                                  AutoSizeText(
+                                    "Invite with code",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                  ),
+                                  SizedBox(height: 20.h),
+                                  AutoSizeText(
+                                    state.club.inviteCode,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
+                                  const Spacer(),
+                                  Birdify.button(
+                                    height: 30.h,
+                                    width: 200.w,
+                                    onClick: () {
+                                      Clipboard.setData(
+                                        ClipboardData(
+                                            text: state.club.inviteCode),
+                                      );
+                                      Navigator.pop(ctx);
+                                    },
+                                    child: AutoSizeText(
+                                      "Copy to Clipboard",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                            // title: const AutoSizeText("Invite with code"),
+                            // content: AutoSizeText(state.club.inviteCode),
+                            // actions: [
+                            //   TextButton(
+                            //     onPressed: () {
+                            //       Clipboard.setData(
+                            //         ClipboardData(text: state.club.inviteCode),
+                            //       );
+                            //     },
+                            //     child: const AutoSizeText("Yes"),
+                            //   )
+                            // ],
+                            ),
+                      );
+                    },
+                    icon: const Icon(Icons.ios_share_sharp),
+                  ),
+                ],
+              ),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(22.w),
@@ -74,11 +155,27 @@ class ClubDetailScreen extends StatelessWidget {
                         ),
                         items: const [
                           "All Meet-Ups",
-                          "On-going Meet-Ups",
-                          'Archived Meet-ups'
+                          "Archived Meet-ups",
+                          "Up-coming Meet-Ups",
+                          "On-going Meet-Ups"
                         ],
-                        onChanged: print,
-                        selectedItem: "On-going MeetUps",
+                        onChanged: (item) {
+                          String filterStatus = '';
+                          switch (item) {
+                            case "Up-coming Meet-Ups":
+                              filterStatus = "upcoming";
+                              break;
+                            case "Archived Meet-ups":
+                              filterStatus = "past";
+                              break;
+                            case "On-going Meet-Ups":
+                              filterStatus = "ongoing";
+                              break;
+                            default:
+                              filterStatus = "";
+                          }
+                        },
+                        selectedItem: "Up-going MeetUps",
                       )
                     ],
                   ),
