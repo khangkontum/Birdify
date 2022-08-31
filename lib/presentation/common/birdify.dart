@@ -135,7 +135,9 @@ class _BirdifyButton extends StatelessWidget {
           // padding: EdgeInsets.all(10.0.w),
           shadowColor: Colors.black,
         ),
-        onPressed: () {},
+        onPressed: () {
+          onClick();
+        },
         child: child,
       ),
     );

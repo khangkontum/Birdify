@@ -6,6 +6,7 @@ import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_final/logic/club/cubit/club_join_cubit.dart';
 import 'package:mobile_final/logic/club/cubit/club_listing_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/club/club-create-screen.dart';
@@ -133,41 +134,84 @@ class _JoinButton extends StatelessWidget {
         onPressed: () {
           showDialog(
             context: context,
-            builder: (BuildContext context) => Dialog(
+            builder: (BuildContext context) => BlocProvider(
+              create: (context) => JoinClubCubit(
+                context.read<ApiRepository>(),
+              ),
+              child: Dialog(
                 backgroundColor: const Color(0xFFfafafa),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5)),
                 elevation: 20,
                 child: Container(
                   padding: EdgeInsets.all(22.w),
-                  height: 200.h,
-                  child: Column(
-                    children: [
-                      AutoSizeText(
-                        "Join with Invite Code",
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                              fontWeight: FontWeight.w800,
-                            ),
-                      ),
-                      SizedBox(height: 20.h),
-                      const Spacer(),
-                      Birdify.button(
-                        height: 30.h,
-                        width: 200.w,
-                        onClick: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: AutoSizeText(
-                          "Join",
-                          style:
-                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                  height: 220.h,
+                  child: BlocListener<JoinClubCubit, JoinClubState>(
+                    listener: (context, state) {
+                      if (state.status == JoinClubStatus.submitting) {
+                        context.loaderOverlay.show();
+                      }
+                      if (state.status == JoinClubStatus.error) {
+                        context.loaderOverlay.hide();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: AutoSizeText(state.errorStatus)),
+                        );
+                      }
+                      if (state.status == JoinClubStatus.success) {
+                        context.loaderOverlay.hide();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: AutoSizeText("Joined club successfully"),
+                          ),
+                        );
+                        Get.back();
+                      }
+                    },
+                    child: BlocBuilder<JoinClubCubit, JoinClubState>(
+                        builder: (context, state) {
+                      return Column(
+                        children: [
+                          AutoSizeText(
+                            "Join with Invite Code",
+                            style:
+                                Theme.of(context).textTheme.subtitle1?.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                          ),
+                          SizedBox(height: 20.h),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(hintText: "Invite Code"),
+                            autofocus: true,
+                            onChanged: (value) => context
+                                .read<JoinClubCubit>()
+                                .codeChanged(value),
+                          ),
+                          const Spacer(),
+                          Birdify.button(
+                            height: 30.h,
+                            width: 200.w,
+                            onClick: () {
+                              context.read<JoinClubCubit>().join();
+                            },
+                            child: AutoSizeText(
+                              "Join",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(
                                     fontWeight: FontWeight.w300,
                                   ),
-                        ),
-                      )
-                    ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
         child: const Icon(Iconsax.cloud_add),
