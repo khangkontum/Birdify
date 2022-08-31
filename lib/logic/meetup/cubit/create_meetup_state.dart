@@ -5,6 +5,8 @@ enum CreateMeetupStatus { initial, submitting, success, error }
 class CreateMeetupState extends Equatable {
   const CreateMeetupState({
     required this.name,
+    required this.location,
+    required this.locationAddress,
     required this.dateChosen,
     required this.timeChosen,
     required this.durationChosen,
@@ -15,15 +17,19 @@ class CreateMeetupState extends Equatable {
   factory CreateMeetupState.initial() {
     return CreateMeetupState(
       name: '',
-      dateChosen: DateTime.now().add(const Duration(days: 1)),
+      location: '',
+      locationAddress: '',
+      dateChosen: DateTime.now(),
       timeChosen: DateTime.now().add(
-        const Duration(days: 1, hours: 2),
+        const Duration(hours: 2),
       ),
-      durationChosen: const Duration(),
+      durationChosen: const Duration(hours: 2),
     );
   }
 
   final String name;
+  final String location;
+  final String locationAddress;
   final DateTime dateChosen;
   final DateTime timeChosen;
   final Duration durationChosen;
@@ -33,6 +39,8 @@ class CreateMeetupState extends Equatable {
   CreateMeetupState copyWith({
     String? clubCode,
     String? name,
+    String? location,
+    String? locationAddress,
     DateTime? dateChosen,
     DateTime? timeChosen,
     Duration? durationChosen,
@@ -41,6 +49,8 @@ class CreateMeetupState extends Equatable {
   }) {
     return CreateMeetupState(
       name: name ?? this.name,
+      location: location ?? this.location,
+      locationAddress: locationAddress ?? this.locationAddress,
       status: status ?? this.status,
       durationChosen: durationChosen ?? this.durationChosen,
       dateChosen: dateChosen ?? this.dateChosen,
@@ -50,8 +60,16 @@ class CreateMeetupState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [errorStatus, status, name, timeChosen, durationChosen, dateChosen];
+  List<Object> get props => [
+        errorStatus,
+        status,
+        name,
+        location,
+        locationAddress,
+        dateChosen,
+        timeChosen,
+        durationChosen
+      ];
 }
 
 

@@ -51,6 +51,7 @@ class MeetUpDetailScreen extends StatelessWidget {
                   children: [
                     _Header(
                       creator: state.meetUp.creator.name ?? 'Unknown',
+                      clubCode: state.meetUp.clubCode,
                       meetUpId: state.meetUp.code,
                     ),
                     SizedBox(height: 50.h),
@@ -60,7 +61,7 @@ class MeetUpDetailScreen extends StatelessWidget {
                     SizedBox(height: 30.h),
                     const _Subtitle(subtitle: 'Location'),
                     SizedBox(height: 15.h),
-                    const _LocationCard(),
+                    _LocationCard(meetUp: state.meetUp),
                     SizedBox(height: 10.h),
                     const _LocationMap(),
                     SizedBox(height: 30.h),
@@ -153,10 +154,12 @@ class _Header extends StatelessWidget {
     Key? key,
     String,
     required this.creator,
+    required this.clubCode,
     required this.meetUpId,
   }) : super(key: key);
 
   final String creator;
+  final String clubCode;
   final String meetUpId;
 
   @override
@@ -169,7 +172,7 @@ class _Header extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 280.w),
           child: Birdify.title(
             title: "Meet-Up by @$creator",
-            subtitle: "#$meetUpId",
+            subtitle: "@$clubCode#$meetUpId",
           ),
         ),
         Icon(
@@ -182,9 +185,9 @@ class _Header extends StatelessWidget {
 }
 
 class _LocationCard extends StatelessWidget {
-  const _LocationCard({Key? key}) : super(key: key);
+  const _LocationCard({Key? key, required this.meetUp}) : super(key: key);
 
-  // final String
+  final MeetUp meetUp;
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +201,7 @@ class _LocationCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText(
-              "Nhà thi đấu Phú Thọ",
+              meetUp.location,
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
@@ -209,7 +212,7 @@ class _LocationCard extends StatelessWidget {
                 maxWidth: 374.w,
               ),
               child: AutoSizeText(
-                "1 Lữ Gia, Phường 15, Quận 11, Thành phố Hồ Chí Minh",
+                meetUp.locationAddress,
                 maxLines: 2,
                 style: Theme.of(context).textTheme.bodyText1?.copyWith(
                       fontWeight: FontWeight.w300,

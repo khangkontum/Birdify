@@ -77,15 +77,19 @@ class body extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
         ),
-        SizedBox(height: 42.h),
+        SizedBox(height: 10.h),
         const _MeetUpNameInput(),
-        SizedBox(height: 20.h),
+        SizedBox(height: 10.h),
+        const _MeetUpLocationInput(),
+        SizedBox(height: 10.h),
+        const _MeetUpLocationAddressInput(),
+        SizedBox(height: 10.h),
         const _DateMeetUp(),
-        SizedBox(height: 20.h),
+        SizedBox(height: 10.h),
         const _TimeMeetUp(),
-        SizedBox(height: 20.h),
+        SizedBox(height: 10.h),
         const _DurationMeetUp(),
-        SizedBox(height: 25.h),
+        SizedBox(height: 10.h),
         const _CreateMeetingButton()
       ],
     );
@@ -103,7 +107,7 @@ class _TimeMeetUp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AutoSizeText(
-          "Meet-up time: ",
+          "Time: ",
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -177,8 +181,7 @@ class _DurationMeetUp extends StatelessWidget {
                 onChanged: (value) => context
                     .read<CreateMeetupCubit>()
                     .durationChosenChanged(value),
-                decoration: const InputDecoration(
-                    hintText: "Enter duration in minutes"),
+                decoration: const InputDecoration(),
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
@@ -234,7 +237,7 @@ class _DateMeetUp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AutoSizeText(
-          "Meet-up time: ",
+          "Date: ",
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: FontWeight.w300,
               ),
@@ -301,6 +304,56 @@ class _MeetUpNameInput extends StatelessWidget {
     );
   }
 }
+
+class _MeetUpLocationInput extends StatelessWidget {
+  const _MeetUpLocationInput({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 64.h,
+      width: 352.w,
+      alignment: Alignment.center,
+      decoration: inputBoxDecoration,
+      child: BlocBuilder<CreateMeetupCubit, CreateMeetupState>(
+        buildWhen: (previous, current) => previous.location != current.location,
+        builder: (context, state) {
+          return TextFormField(
+            onChanged: (value) =>
+                context.read<CreateMeetupCubit>().locationChanged(value),
+            decoration: const InputDecoration(hintText: "Location"),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _MeetUpLocationAddressInput extends StatelessWidget {
+  const _MeetUpLocationAddressInput({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 64.h,
+      width: 352.w,
+      alignment: Alignment.center,
+      decoration: inputBoxDecoration,
+      child: BlocBuilder<CreateMeetupCubit, CreateMeetupState>(
+        buildWhen: (previous, current) =>
+            previous.locationAddress != current.locationAddress,
+        builder: (context, state) {
+          return TextFormField(
+            onChanged: (value) =>
+                context.read<CreateMeetupCubit>().locationAddressChanged(value),
+            decoration: const InputDecoration(hintText: "Address"),
+          );
+        },
+      ),
+    );
+  }
+}
+
 
 // class _MeetUpCodeInput extends StatelessWidget {
 //   const _MeetUpCodeInput({Key? key}) : super(key: key);

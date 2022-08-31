@@ -9,8 +9,10 @@ class MeetUp extends Equatable {
   final DateTime endTime;
   final AppUser creator;
   final List<AppUser> participants;
-  // final String? payment;
   final String status;
+  final String location;
+  final String locationAddress;
+  // final String? payment;
 
   const MeetUp({
     required this.code,
@@ -21,6 +23,8 @@ class MeetUp extends Equatable {
     required this.creator,
     required this.participants,
     required this.status,
+    required this.location,
+    required this.locationAddress,
     // this.payment = '',
   });
 
@@ -32,8 +36,10 @@ class MeetUp extends Equatable {
     endTime: DateTime.now(),
     creator: AppUser.empty,
     participants: const [],
-    // payment: '',
     status: '',
+    location: '',
+    locationAddress: '',
+    // payment: '',
   );
 
   factory MeetUp.fromJson(Map<String, dynamic> json) => MeetUp(
@@ -44,6 +50,8 @@ class MeetUp extends Equatable {
         endTime: DateTime.fromMillisecondsSinceEpoch(json['endTime']),
         creator: AppUser.fromJson(json['creator']),
         status: json['status'],
+        location: json['location'],
+        locationAddress: json['location_address'],
         participants: List<AppUser>.from(
           json['participants'].map(
             (rawUser) => AppUser.fromJson(rawUser),

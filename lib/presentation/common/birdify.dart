@@ -245,7 +245,7 @@ class _BirdifyCard extends StatelessWidget {
                         ],
                       ),
                       AutoSizeText(
-                        '#${meetUp.code}',
+                        '@${meetUp.clubCode}#${meetUp.code}',
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontWeight: FontWeight.w300,
                               fontStyle: FontStyle.italic,

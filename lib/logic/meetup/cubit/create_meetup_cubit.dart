@@ -19,6 +19,20 @@ class CreateMeetupCubit extends Cubit<CreateMeetupState> {
     ));
   }
 
+  void locationChanged(String value) {
+    emit(state.copyWith(
+      location: value,
+      status: CreateMeetupStatus.initial,
+    ));
+  }
+
+  void locationAddressChanged(String value) {
+    emit(state.copyWith(
+      locationAddress: value,
+      status: CreateMeetupStatus.initial,
+    ));
+  }
+
   void dateChosenChanged(DateTime value) {
     emit(state.copyWith(
       dateChosen: value,
@@ -62,6 +76,8 @@ class CreateMeetupCubit extends Cubit<CreateMeetupState> {
         data: {
           'clubCode': clubCode,
           'name': state.name,
+          'location': state.location,
+          'location_address': state.locationAddress,
           'startTime': startTime.millisecondsSinceEpoch,
           'endTime': endTime.millisecondsSinceEpoch
         },
