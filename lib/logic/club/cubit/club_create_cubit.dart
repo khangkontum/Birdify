@@ -13,11 +13,17 @@ class CreateClubCubit extends Cubit<CreateClubState> {
   ) : super(CreateClubState.initial());
 
   void codeChanged(String value) {
-    emit(state.copyWith(code: value));
+    emit(state.copyWith(
+      code: value,
+      status: CreateClubStatus.initial,
+    ));
   }
 
   void nameChanged(String value) {
-    emit(state.copyWith(name: value));
+    emit(state.copyWith(
+      name: value,
+      status: CreateClubStatus.initial,
+    ));
   }
 
   Future<void> create() async {
@@ -46,7 +52,7 @@ class CreateClubCubit extends Cubit<CreateClubState> {
         emit(
           state.copyWith(
             status: CreateClubStatus.error,
-            errorStatus: e.message,
+            errorStatus: e.response?.data['message'] ?? "Unknown Error",
           ),
         );
       } catch (e) {

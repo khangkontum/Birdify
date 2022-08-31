@@ -105,7 +105,9 @@ class _GroupTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => const ClubDetailScreen()),
+      onTap: () => Get.to(() => ClubDetailScreen(
+            clubCode: club.code,
+          )),
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: 10.h,

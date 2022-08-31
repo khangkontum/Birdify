@@ -1,24 +1,36 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/create-meetup-screen.dart';
 
 class ClubDetailScreen extends StatelessWidget {
-  const ClubDetailScreen({Key? key}) : super(key: key);
+  const ClubDetailScreen({
+    Key? key,
+    required this.clubCode,
+  }) : super(key: key);
+
+  final String clubCode;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(
-              side: BorderSide(width: 1.0, color: Colors.black)),
-          elevation: 0.5,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          onPressed: () {},
-          child: const Icon(Iconsax.message)),
+        shape: const CircleBorder(
+          side: BorderSide(width: 1.0, color: Colors.black),
+        ),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        onPressed: () {
+          Get.to(
+            () => MeetUpCreateScreen(clubCode: clubCode),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: Birdify.appbar(),
       body: SingleChildScrollView(
         child: Padding(

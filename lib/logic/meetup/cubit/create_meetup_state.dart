@@ -4,59 +4,54 @@ enum CreateMeetupStatus { initial, submitting, success, error }
 
 class CreateMeetupState extends Equatable {
   const CreateMeetupState({
-    required this.clubCode,
     required this.name,
-    required this.startTime,
-    required this.endTime,
+    required this.dateChosen,
+    required this.timeChosen,
+    required this.durationChosen,
     this.status = CreateMeetupStatus.initial,
     this.errorStatus = '',
   });
 
   factory CreateMeetupState.initial() {
     return CreateMeetupState(
-      clubCode: '',
       name: '',
-      startTime: DateTime.now().add(const Duration(days: 1)),
-      endTime: DateTime.now().add(
+      dateChosen: DateTime.now().add(const Duration(days: 1)),
+      timeChosen: DateTime.now().add(
         const Duration(days: 1, hours: 2),
       ),
+      durationChosen: const Duration(),
     );
   }
 
-  final String clubCode;
   final String name;
-  final DateTime startTime;
-  final DateTime endTime;
+  final DateTime dateChosen;
+  final DateTime timeChosen;
+  final Duration durationChosen;
   final String errorStatus;
   final CreateMeetupStatus status;
 
   CreateMeetupState copyWith({
     String? clubCode,
     String? name,
-    DateTime? startTime,
-    DateTime? endTime,
+    DateTime? dateChosen,
+    DateTime? timeChosen,
+    Duration? durationChosen,
     String? errorStatus,
     CreateMeetupStatus? status,
   }) {
     return CreateMeetupState(
-      clubCode: clubCode ?? this.clubCode,
       name: name ?? this.name,
       status: status ?? this.status,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
+      durationChosen: durationChosen ?? this.durationChosen,
+      dateChosen: dateChosen ?? this.dateChosen,
+      timeChosen: timeChosen ?? this.timeChosen,
       errorStatus: errorStatus ?? this.errorStatus,
     );
   }
 
   @override
-  List<Object> get props => [
-        errorStatus,
-        status,
-        clubCode,
-        name,
-        startTime,
-        endTime,
-      ];
+  List<Object> get props =>
+      [errorStatus, status, name, timeChosen, durationChosen, dateChosen];
 }
 
 

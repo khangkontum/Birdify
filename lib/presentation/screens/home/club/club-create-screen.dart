@@ -35,8 +35,9 @@ class ClubCreateScreen extends StatelessWidget {
                 context.loaderOverlay.hide();
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: AutoSizeText("Create Club Success"),
+                  SnackBar(
+                    content:
+                        AutoSizeText("Create club ${state.name} successful"),
                   ),
                 );
                 Get.back();
