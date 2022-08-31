@@ -29,6 +29,7 @@ class MeetUpCreateScreen extends StatelessWidget {
       ),
       child: SafeArea(
           child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: Birdify.appbar(),
         body: Center(
           child: BlocListener<CreateMeetupCubit, CreateMeetupState>(
@@ -77,19 +78,19 @@ class body extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _MeetUpNameInput(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _MeetUpLocationInput(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _MeetUpLocationAddressInput(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _DateMeetUp(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _TimeMeetUp(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 7.h),
         const _DurationMeetUp(),
-        SizedBox(height: 10.h),
+        SizedBox(height: 5.h),
         const _CreateMeetingButton()
       ],
     );
