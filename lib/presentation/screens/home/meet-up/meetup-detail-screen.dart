@@ -169,7 +169,7 @@ class _Header extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 280.w),
           child: Birdify.title(
             title: "Meet-Up by @$creator",
-            subtitle: meetUpId,
+            subtitle: "#$meetUpId",
           ),
         ),
         Icon(

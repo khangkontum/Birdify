@@ -72,7 +72,7 @@ class _Body extends StatelessWidget {
               onPressed: () {
                 Get.to(() => const ClubCreateScreen());
               },
-              child: const Icon(Iconsax.cloud_add),
+              child: const Icon(Icons.add),
             ),
             body: ListView.builder(
               itemCount: 4,
