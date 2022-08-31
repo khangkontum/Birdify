@@ -8,6 +8,9 @@ class AppUser extends Equatable {
   final String? phone;
   final String? photo;
   final String? token;
+  final int? attendedMeetups;
+  final double? totalPaid;
+  final double? totalUnpaid;
 
   const AppUser({
     required this.id,
@@ -16,6 +19,9 @@ class AppUser extends Equatable {
     this.photo = '',
     this.name = '',
     this.phone = '',
+    this.attendedMeetups = 0,
+    this.totalPaid = 0,
+    this.totalUnpaid = 0,
   });
 
   static const empty = AppUser(id: '');
