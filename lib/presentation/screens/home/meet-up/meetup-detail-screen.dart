@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile_final/data/models/app_user.dart';
 import 'package:mobile_final/data/models/meetup.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/logic/meetup/cubit/meetup_detail_cubit.dart';
@@ -70,7 +71,7 @@ class MeetUpDetailScreen extends StatelessWidget {
                     SizedBox(height: 15.h),
                     const _PaymentButton(),
                     SizedBox(height: 65.h),
-                    // TODO: Implement List of Participants
+                    _ParticipantsList(meetUp: state.meetUp)
                   ],
                 ),
               ),
@@ -302,6 +303,91 @@ class _PaymentButton extends StatelessWidget {
       onTap: () => Get.to(
         () => const PaymentScreen(),
       ),
+    );
+  }
+}
+
+class _ParticipantsList extends StatelessWidget {
+  const _ParticipantsList({required this.meetUp, super.key});
+
+  final MeetUp meetUp;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AutoSizeText(
+              'Participants',
+              style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            if (meetUp.isYourMeetup == true)
+              TextButton(
+                onPressed: () {},
+                child: AutoSizeText(
+                  "Request pay to All",
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        fontWeight: FontWeight.w300,
+                      ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 20.h),
+        for (int index = 0; index < meetUp.participants.length; index += 1)
+          ParticipantTile(participant: meetUp.participants[index])
+        // ListView.builder(
+        //   itemCount: meetUp.participants.length,
+        //   itemBuilder: (BuildContext context, int index) {
+        //     return Row(
+        //       children: [
+        //         Image.network(
+        //           meetUp.participants[index].photo ?? "",
+        //           width: 100.w,
+        //           height: 100.w,
+        //         )
+        //       ],
+        //     );
+        //   },
+        // ),
+      ],
+    );
+  }
+}
+
+class ParticipantTile extends StatelessWidget {
+  const ParticipantTile({
+    Key? key,
+    required this.participant,
+  }) : super(key: key);
+
+  final AppUser participant;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            SizedBox(
+              width: 50.w,
+              child: Image.network(
+                participant.photo.toString(),
+                fit: BoxFit.fitWidth,
+                errorBuilder: (context, exception, stackTrace) => Image.asset(
+                  'assets/error.png',
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 20.w),
+      ],
     );
   }
 }

@@ -14,7 +14,7 @@ class BillCreateState extends Equatable {
   final BillCreateStatus status;
 
   factory BillCreateState.initial() {
-    return BillCreateState(
+    return const BillCreateState(
       bill: <BillItem>[],
       currentItem: BillItem.empty,
       status: BillCreateStatus.initial,

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:equatable/equatable.dart';
 import 'package:mobile_final/data/models/app_user.dart';
 
@@ -11,36 +13,39 @@ class MeetUp extends Equatable {
   final List<AppUser> participants;
   final String status;
   final String location;
+  final bool isYourMeetup;
   final String locationAddress;
   // final String? payment;
 
-  const MeetUp({
-    required this.code,
-    required this.clubCode,
-    required this.name,
-    required this.startTime,
-    required this.endTime,
-    required this.creator,
-    required this.participants,
-    required this.status,
-    required this.location,
-    required this.locationAddress,
-    // this.payment = '',
-  });
+  const MeetUp(
+      {required this.code,
+      required this.clubCode,
+      required this.name,
+      required this.startTime,
+      required this.endTime,
+      required this.creator,
+      required this.participants,
+      required this.status,
+      required this.location,
+      required this.locationAddress,
+      required this.isYourMeetup
+      // this.payment = '',
+      });
 
   static final empty = MeetUp(
-    code: '',
-    clubCode: '',
-    name: '',
-    startTime: DateTime.now(),
-    endTime: DateTime.now(),
-    creator: AppUser.empty,
-    participants: const [],
-    status: '',
-    location: '',
-    locationAddress: '',
-    // payment: '',
-  );
+      code: '',
+      clubCode: '',
+      name: '',
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      creator: AppUser.empty,
+      participants: const [],
+      status: '',
+      location: '',
+      locationAddress: '',
+      isYourMeetup: false
+      // payment: '',
+      );
 
   factory MeetUp.fromJson(Map<String, dynamic> json) => MeetUp(
         code: json['code'],
@@ -52,6 +57,7 @@ class MeetUp extends Equatable {
         status: json['status'],
         location: json['location'],
         locationAddress: json['location_address'],
+        isYourMeetup: json['isYourMeetup'],
         participants: List<AppUser>.from(
           json['participants'].map(
             (rawUser) => AppUser.fromJson(rawUser),
@@ -68,6 +74,7 @@ class MeetUp extends Equatable {
         startTime,
         endTime,
         creator,
+        isYourMeetup,
         participants,
       ];
 }
