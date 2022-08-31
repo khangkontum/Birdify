@@ -213,7 +213,7 @@ class _MyProfile extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset('assets/matches.png'),
+                              Image.asset('assets/paid.png'),
                               SizedBox(width: 10.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +249,7 @@ class _MyProfile extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset('assets/matches.png'),
+                              Image.asset('assets/paid.png'),
                               SizedBox(width: 10.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
