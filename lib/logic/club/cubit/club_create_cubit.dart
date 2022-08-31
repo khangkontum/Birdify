@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 
-part 'create_club_state.dart';
+part 'club_create_state.dart';
 
 class CreateClubCubit extends Cubit<CreateClubState> {
   final ApiRepository apiRepository;

@@ -1,4 +1,4 @@
-part of 'create_club_cubit.dart';
+part of 'club_create_cubit.dart';
 
 enum CreateClubStatus { initial, submitting, success, error }
 

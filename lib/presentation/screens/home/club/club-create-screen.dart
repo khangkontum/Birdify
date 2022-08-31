@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
-import 'package:mobile_final/logic/club/cubit/create_club_cubit.dart';
+import 'package:mobile_final/logic/club/cubit/club_create_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/input_box_decoration.dart';

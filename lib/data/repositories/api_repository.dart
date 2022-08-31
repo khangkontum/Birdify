@@ -30,7 +30,7 @@ class ApiRepository {
   Future request({
     required String postfix,
     required String method,
-    required data,
+    data = const {},
   }) async {
     var token = await authRepository.token;
     return dio.request(

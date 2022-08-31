@@ -6,7 +6,7 @@ import 'package:mobile_final/bloc_observer.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
-import 'package:mobile_final/logic/club/cubit/create_club_cubit.dart';
+import 'package:mobile_final/logic/club/cubit/club_create_cubit.dart';
 import 'package:mobile_final/logic/meetup/create-meetup-cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
