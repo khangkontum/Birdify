@@ -98,7 +98,7 @@ class ClubDetailScreen extends StatelessWidget {
                                         ClipboardData(
                                             text: state.club.inviteCode),
                                       );
-                                      Navigator.pop(ctx);
+                                      Navigator.of(ctx).pop();
                                     },
                                     child: AutoSizeText(
                                       "Copy to Clipboard",

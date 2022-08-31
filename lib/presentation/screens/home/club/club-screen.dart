@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/data/models/club.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:flutter/material.dart';
@@ -59,16 +60,11 @@ class _Body extends StatelessWidget {
           }
           return Scaffold(
             appBar: Birdify.appbarWithoutBack(),
-            floatingActionButton: FloatingActionButton(
-              shape: const CircleBorder(
-                  side: BorderSide(width: 1.0, color: Colors.black)),
-              elevation: 0.5,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              onPressed: () {
-                Get.to(() => const ClubCreateScreen());
-              },
-              child: const Icon(Icons.add),
+            floatingActionButton: Stack(
+              children: const [
+                _CreateClubButton(),
+                _JoinButton(),
+              ],
             ),
             body: ListView.builder(
               itemCount: state.clubs.length,
@@ -85,6 +81,96 @@ class _Body extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _CreateClubButton extends StatelessWidget {
+  const _CreateClubButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 31.w),
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: FloatingActionButton(
+          heroTag: null,
+          shape: const CircleBorder(
+              side: BorderSide(width: 1.0, color: Colors.black)),
+          elevation: 0.5,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          onPressed: () {
+            Get.to(() => const ClubCreateScreen());
+          },
+          child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+class _JoinButton extends StatelessWidget {
+  const _JoinButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: FloatingActionButton(
+        heroTag: null,
+        shape: const CircleBorder(
+            side: BorderSide(width: 1.0, color: Colors.black)),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => Dialog(
+                backgroundColor: const Color(0xFFfafafa),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                elevation: 20,
+                child: Container(
+                  padding: EdgeInsets.all(22.w),
+                  height: 200.h,
+                  child: Column(
+                    children: [
+                      AutoSizeText(
+                        "Join with Invite Code",
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                      SizedBox(height: 20.h),
+                      const Spacer(),
+                      Birdify.button(
+                        height: 30.h,
+                        width: 200.w,
+                        onClick: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: AutoSizeText(
+                          "Join",
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          );
+        },
+        child: const Icon(Iconsax.cloud_add),
       ),
     );
   }
