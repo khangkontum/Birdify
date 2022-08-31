@@ -93,4 +93,10 @@ class ListingNotificationCubit extends Cubit<ListingNotificationState> {
       print(e);
     }
   }
+
+  @override
+  Future<void> close() {
+    timer.cancel();
+    return super.close();
+  }
 }

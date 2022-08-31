@@ -5,6 +5,7 @@ class AppUser extends Equatable {
   final String? email;
   final String id;
   final String? name;
+  final String? location;
   final String? phone;
   final String? photo;
   final String? token;
@@ -18,6 +19,7 @@ class AppUser extends Equatable {
     this.token = '',
     this.photo = '',
     this.name = '',
+    this.location = '',
     this.phone = '',
     this.attendedMeetups = 0,
     this.totalPaid = 0,
