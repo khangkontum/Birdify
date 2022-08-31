@@ -1,6 +1,12 @@
 part of 'notification_listing_cubit.dart';
 
-enum ListingNotificationStatus { initial, submitting, success, error }
+enum ListingNotificationStatus {
+  initial,
+  submitting,
+  success,
+  error,
+  pollError
+}
 
 class ListingNotificationState extends Equatable {
   const ListingNotificationState({

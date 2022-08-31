@@ -46,7 +46,8 @@ class _Body extends StatelessWidget {
       },
       child: BlocBuilder<ListingNotificationCubit, ListingNotificationState>(
         builder: (context, state) {
-          if (state.status != ListingNotificationStatus.success) {
+          if (state.status != ListingNotificationStatus.success &&
+              state.status != ListingNotificationStatus.pollError) {
             return const Center(
               child: SpinKitFadingFour(
                 color: Colors.black,
