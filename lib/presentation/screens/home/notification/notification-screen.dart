@@ -40,7 +40,6 @@ class NotificationScreen extends StatelessWidget {
             const _GroupTile(
               sUser: 'Club @20CTT1',
               sAction: 'have 6 new meetings',
-              sMeeting: '',
             ),
           ],
         ),
@@ -54,7 +53,7 @@ class _GroupTile extends StatelessWidget {
     Key? key,
     required this.sUser,
     required this.sAction,
-    required this.sMeeting,
+    String this.sMeeting = '',
   }) : super(key: key);
 
   final String sUser;
@@ -70,7 +69,7 @@ class _GroupTile extends StatelessWidget {
           vertical: 16.h,
           horizontal: 1.w,
         ),
-        height: 75.h,
+        height: 79.h,
         width: 384.w,
         decoration: BoxDecoration(
             border: Border(
@@ -106,7 +105,7 @@ class _GroupTile extends StatelessWidget {
                               .bodyText1
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(width: 1.w),
+                        SizedBox(width: 3.w),
                         AutoSizeText(
                           sAction,
                           style: Theme.of(context)
