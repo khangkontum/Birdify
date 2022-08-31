@@ -1,10 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_final/logic/club/cubit/club_listing_cubit.dart';
 import 'package:mobile_final/logic/meetup/cubit/create_meetup_cubit.dart';
+import 'package:mobile_final/logic/meetup/cubit/meetup_listing_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/create-meetup-screen.dart';
 import 'package:mobile_final/presentation/screens/home/meet-up/meetup-detail-screen.dart';
@@ -35,31 +39,50 @@ class MeetupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Birdify.appbarWithoutBack(),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(
-            side: BorderSide(width: 1.0, color: Colors.black)),
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        onPressed: () {
-          context.read<CreateMeetupCubit>().create();
-          // Get.to(() => const CreatMeetupScreen());
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: ListView.builder(
-        itemCount: 2,
-        itemBuilder: (BuildContext context, int index) {
-          return Center(
-            child: Birdify.meetUpCard(
-              onTap: () => Get.to(
-                () => const MeetUpDetailScreen(),
+    return SafeArea(
+      child: BlocProvider(
+        create: (context) => ListingmeetupCubit(
+          context.read<ApiRepository>(),
+        ),
+        child: BlocBuilder<ListingmeetupCubit, ListingMeetUpState>(
+          builder: (context, state) {
+            if (state.status != ListingMeetUpStatus.success) {
+              return const Center(
+                child: SpinKitFadingFour(
+                  color: Colors.black,
+                ),
+              );
+            }
+            return Scaffold(
+              appBar: Birdify.appbarWithoutBack(),
+              floatingActionButton: FloatingActionButton(
+                shape: const CircleBorder(
+                    side: BorderSide(width: 1.0, color: Colors.black)),
+                elevation: 0.5,
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                onPressed: () {
+                  context.read<CreateMeetupCubit>().create();
+                  // Get.to(() => const CreatMeetupScreen());
+                },
+                child: const Icon(Icons.add),
               ),
-            ),
-          );
-        },
+              body: ListView.builder(
+                itemCount: state.meetUps.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Center(
+                    child: Birdify.meetUpCard(
+                      meetUp: state.meetUps[index],
+                      onTap: () => Get.to(
+                        () => const MeetUpDetailScreen(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

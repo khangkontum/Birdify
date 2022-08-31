@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile_final/data/models/club.dart';
 import 'package:mobile_final/data/repositories/api_repository.dart';
@@ -54,7 +55,11 @@ class _Body extends StatelessWidget {
       child: BlocBuilder<ListingClubCubit, ListingClubState>(
         builder: (context, state) {
           if (state.status != ListingClubStatus.success) {
-            return Container();
+            return const Center(
+              child: SpinKitFadingFour(
+                color: Colors.black,
+              ),
+            );
           }
           return Scaffold(
             appBar: Birdify.appbarWithoutBack(),

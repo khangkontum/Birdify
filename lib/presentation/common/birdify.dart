@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mobile_final/data/models/meetup.dart';
 
 class Birdify {
   static StatelessWidget button(
@@ -43,9 +45,11 @@ class Birdify {
   }
 
   static StatelessWidget meetUpCard({
+    required MeetUp meetUp,
     required void Function() onTap,
   }) {
     return _BirdifyCard(
+      meetUp: meetUp,
       onTap: onTap,
     );
   }
@@ -141,10 +145,13 @@ class _BirdifyButton extends StatelessWidget {
 class _BirdifyCard extends StatelessWidget {
   const _BirdifyCard({
     Key? key,
+    required this.meetUp,
     required this.onTap,
   }) : super(key: key);
 
   final void Function() onTap;
+
+  final MeetUp meetUp;
 
   @override
   Widget build(BuildContext context) {
@@ -178,14 +185,24 @@ class _BirdifyCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AutoSizeText(
-                            '8:30-11:30 am',
+                            '${formatDate(meetUp.startTime, [
+                                  HH,
+                                  ':',
+                                  nn
+                                ])}-${formatDate(meetUp.endTime, [
+                                  HH,
+                                  ':',
+                                  nn
+                                ])}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
                                 ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                           AutoSizeText(
-                            'Sat 8/20/22',
+                            formatDate(meetUp.startTime,
+                                [D, ' ', d, '/', mm, '/', yyyy]),
+                            // 'Sat 8/20/22',
                             style:
                                 Theme.of(context).textTheme.bodyText1?.copyWith(
                                       fontWeight: FontWeight.w300,
@@ -197,7 +214,7 @@ class _BirdifyCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           AutoSizeText(
-                            'status',
+                            meetUp.status,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -219,7 +236,7 @@ class _BirdifyCard extends StatelessWidget {
                       Column(
                         children: [
                           AutoSizeText(
-                            'Meet-up host',
+                            "${meetUp.creator.name ?? 'unknown'}'s meet-up",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1
@@ -228,7 +245,7 @@ class _BirdifyCard extends StatelessWidget {
                         ],
                       ),
                       AutoSizeText(
-                        '#meetingId',
+                        '#${meetUp.code}',
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               fontWeight: FontWeight.w300,
                               fontStyle: FontStyle.italic,
