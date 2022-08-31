@@ -1,16 +1,14 @@
-// import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
-import 'package:mobile_final/presentation/screens/home/profile/profile-archivement-screen.dart';
+import 'package:mobile_final/presentation/screens/home/profile/profile-screen.dart';
 import 'package:mobile_final/presentation/screens/home/profile/profile-history-screen.dart';
 
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileArchivementScreen extends StatelessWidget {
+  // const ProfileArchivementScreen({super.key});
+  const ProfileArchivementScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +49,7 @@ class _MyProfile extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 // height: height * 0.6,
-                height: 620.h,
+                height: 675.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -80,7 +78,7 @@ class _MyProfile extends StatelessWidget {
                   ),
                   Container(
                     child: Row(
-                      children: [
+                      children: [ 
                         Text(
                           'Nguyen Van A',
                           style: TextStyle(fontSize: 28, fontFamily: 'Roboto', fontWeight: FontWeight.w700),
@@ -132,14 +130,11 @@ class _MyProfile extends StatelessWidget {
                         height: height / 16,
                         width: width / 3.5,
                         child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          color: Colors.black,
-                          onPressed: () {},
+                          onPressed: () => Get.to(() => const ProfileScreen()),
+                          // onPressed: (){},
                           child: Text(
                             'Overview',
                             style: TextStyle(
-                              color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 16.5,
                             ),
@@ -153,11 +148,14 @@ class _MyProfile extends StatelessWidget {
                         width: width / 3,
                         height: height / 16.5,
                         child: FlatButton(
-                          onPressed: () => Get.to(() => const ProfileArchivementScreen()),
-                          // onPressed: (){},
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          color: Colors.black,
+                          onPressed: () {},
                           child: Text(
                             'Archivement',
                             style: TextStyle(
+                              color: Colors.white,
                               fontWeight: FontWeight.w700,
                               fontSize: 16.5,
                             ),
@@ -183,9 +181,19 @@ class _MyProfile extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20),
-                  _OverviewButtonMatches(),
-                  SizedBox(height: 35),
-                  _OverviewButtonSkill(),
+                  Column(
+                    children: [
+                      Image.asset('assets/archivement.png'),
+                      SizedBox(height: 10),
+                      AutoSizeText(
+                        "You have not participated in any tournaments yet.",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -231,150 +239,11 @@ class _MyProfile extends StatelessWidget {
     required double all,
     required Color color,
   }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
-        ),
-      );
-}
-
-class _OverviewButtonMatches extends StatelessWidget {
-  const _OverviewButtonMatches({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Birdify.stackCard(
-      height: 87.h,
-      width: 353.w,
-      child: Padding(
-        padding: EdgeInsets.all(10.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/matches.png'),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  "Số trận đã chơi",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 10.h),
-                Row(
-                  children: [
-                    AutoSizeText(
-                      "19 trận",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 35.w),
-                    AutoSizeText(
-                      "-",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 35.w),
-                    AutoSizeText(
-                      "Kể từ 9/4/2022",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
-                
-              ],
-            )
-          ],
-        ),
+    ClipOval(
+      child: Container(
+        padding: EdgeInsets.all(all),
+        color: color,
+        child: child,
       ),
-      onTap: (){},
     );
-  }
-}
-
-class _OverviewButtonSkill extends StatelessWidget {
-  const _OverviewButtonSkill({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Birdify.stackCard(
-      height: 87.h,
-      width: 353.w,
-      child: Padding(
-        padding: EdgeInsets.all(10.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/skill.png'),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  "Kỹ năng",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: 10.h),
-                Row(
-                  children: [
-                    AutoSizeText(
-                      "Trung bình",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 10.w),
-                    AutoSizeText(
-                      "-",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 10.w),
-                    Row(
-                      children: [
-                        AutoSizeText(
-                          "Lối đánh",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontWeight: FontWeight.w300),
-                        ),
-                        SizedBox(width: 4.w),
-                        AutoSizeText(
-                          "Tấn công",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-      onTap: (){},
-    );
-  }
 }
