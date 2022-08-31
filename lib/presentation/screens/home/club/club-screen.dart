@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
 import 'package:mobile_final/presentation/screens/home/club/club-detail-screen.dart';
-import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-detail-screen.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/meetup-detail-screen.dart';
 
 class ClubScreen extends StatelessWidget {
   const ClubScreen({super.key});
@@ -14,15 +14,6 @@ class ClubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(
-            side: BorderSide(width: 1.0, color: Colors.black)),
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        onPressed: () {},
-        child: const Icon(Iconsax.cloud_plus),
-      ),
       appBar: Birdify.appbarWithoutBack(),
       body: ListView.builder(
         itemCount: 4,

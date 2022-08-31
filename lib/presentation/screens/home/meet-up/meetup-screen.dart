@@ -4,8 +4,11 @@ import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_final/logic/meetup/create-meetup-cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/presentation/common/birdify.dart';
-import 'package:mobile_final/presentation/screens/home/meet-up/meet-up-detail-screen.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/create-meetup-screen.dart';
+import 'package:mobile_final/presentation/screens/home/meet-up/meetup-detail-screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MeetupScreen extends StatelessWidget {
   const MeetupScreen({super.key});
@@ -40,7 +43,10 @@ class MeetupScreen extends StatelessWidget {
         elevation: 0.5,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        onPressed: () {},
+        onPressed: () {
+          context.read<CreateMeetupCubit>().create();
+          // Get.to(() => const CreatMeetupScreen());
+        },
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(

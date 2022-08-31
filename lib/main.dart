@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
 import 'package:mobile_final/bloc_observer.dart';
+import 'package:mobile_final/data/repositories/api_repository.dart';
 import 'package:mobile_final/data/repositories/auth_repository.dart';
 import 'package:mobile_final/data/repositories/meetup_repository.dart';
 import 'package:mobile_final/logic/auth_bloc/auth_bloc.dart';
+import 'package:mobile_final/logic/meetup/create-meetup-cubit/create_meetup_cubit.dart';
 import 'package:mobile_final/presentation/config/configuration.dart';
 import 'package:mobile_final/presentation/routers/auth_router.dart';
 import 'package:mobile_final/presentation/routers/router.dart';
@@ -23,7 +25,10 @@ Future<void> main() async {
   final MeetUpRepository meetUpRepository = MeetUpRepository();
 
   runApp(
-    MyApp(authRepository: authRepository, meetUpRepository: meetUpRepository),
+    MyApp(
+      authRepository: authRepository,
+      meetUpRepository: meetUpRepository,
+    ),
   );
 }
 
@@ -39,10 +44,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppConfiguration(
-      app: RepositoryProvider.value(
-        value: authRepository,
-        child: BlocProvider(
-          create: (_) => AuthBloc(authRepository),
+      app: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider.value(
+            value: authRepository,
+          ),
+          RepositoryProvider(
+            create: (context) => ApiRepository(
+              authRepository: authRepository,
+            ),
+          ),
+        ],
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => AuthBloc(authRepository),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  CreateMeetupCubit(context.read<ApiRepository>()),
+            ),
+          ],
           child: const AppView(),
         ),
       ),
