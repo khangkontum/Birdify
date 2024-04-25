@@ -12,7 +12,7 @@
 ### Demo
 ![](./demo.gif)
 ### Development
-- The project strictly follows clean architecture proposed by Uncle Bob with some small configuration to work with `BloC` state manager. 
+- The project ~strictly~ follows clean architecture proposed by Uncle Bob with some small configuration to work with `BloC` state manager. 
 - The project is aimed to release on Android environment so its configuration will lead to bugs on IOS device.
 - Build app with `flutter`.
 ```
